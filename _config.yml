@@ -18,8 +18,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Odyssey Armament
-copyright: Copyright 2021 Odyssey Armament
+title: Odyssey Arm
+copyright: Copyright 2021 Odyssey Arm
 email: info@odysseyarm.com
 phone_number: (281) 899-0178
 description: >- # this means to ignore newlines until "baseurl:"
