@@ -18,16 +18,20 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@example.com
+title: Odyssey Armament
+copyright: Copyright 2021 Odyssey Armament
+email: info@odysseyarm.com
+phone_number: (281) 899-0178
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  The Odyssey is a programmable, wearable, device for firearms that enables
+  advanced features such as live fire virtual reality training and firearms
+  safety applications.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: AtsOdyssey
+github_username:  odysseyarm
+facebook_username: OdysseyArmament
+instagram_username: odysseyats
 
 # Build settings
 theme: minima
