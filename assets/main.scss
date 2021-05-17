@@ -3,4 +3,9 @@
 ---
 
 @import "minima";
+@import "bulma-vars";
 @import "bulma";
+
+.hero-body img {
+  max-height: 30rem;
+}
