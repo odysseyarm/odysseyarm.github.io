@@ -14,7 +14,6 @@
       </a>
     </div>
     <div id="nav-menu" class="navbar-menu">
-      {%- if page_paths -%}
       <div class="navbar-start">
         {%- for path in page_paths -%}
         {%- assign my_page = site.pages | where: "path", path | first -%}
@@ -23,7 +22,6 @@
         {%- endif -%}
         {%- endfor -%}
       </div>
-      {%- endif -%}
     </div>
   </nav>
 </header>

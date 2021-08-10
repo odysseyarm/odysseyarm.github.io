@@ -38,11 +38,6 @@ theme: minima
 plugins:
   - jekyll-feed
 
-collections:
-  pages:
-    output: true
-    permalink: /:path
-
 sass:
   style: compressed
   load_paths:
