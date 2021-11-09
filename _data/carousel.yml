@@ -1,0 +1,19 @@
+list:
+  - source: '<li class="carousel__slide">
+               <div class="plyr__video-embed js-player">
+                 <iframe
+                   src="https://www.youtube.com/embed/TaLoeD_lgkc?origin=https://odysseyarm.com&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                   allowfullscreen
+                   allowtransparency
+                 ></iframe>
+               </div>
+             </li>'
+  - source: '<li class="carousel__slide">
+                <div class="plyr__video-embed js-player">
+                  <iframe
+                    src="https://www.youtube.com/embed/OvrlWw4WyrQ?origin=https://odysseyarm.com&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                    allowfullscreen
+                    allowtransparency
+                  ></iframe>
+                </div>
+             </li>'

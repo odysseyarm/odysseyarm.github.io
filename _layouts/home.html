@@ -12,7 +12,7 @@ layout: default
         <p class="subtitle">
           Train the Way You Fight in Virtual Reality
         </p>
-        <style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://www.youtube.com/embed/TaLoeD_lgkc' frameborder='0' allowfullscreen></iframe></div>
+          {% include carousel.html height="56.25" unit="%" %}
       </div>
     </div>
   </section>
@@ -55,6 +55,23 @@ layout: default
     </div>
   </section>
 
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="title">
+          Documentary
+        </p>
+        <div class="plyr__video-embed js-player">
+          <iframe
+            src="https://www.youtube.com/embed/DZjhf4UjN3s?origin=https://odysseyarm.com&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+            allowfullscreen
+            allowtransparency
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
@@ -76,5 +93,16 @@ layout: default
       {%- endfor -%}
     </ul>
   {%- endif -%}
-
 </div>
+
+<script src="https://cdn.plyr.io/3.6.9/plyr.polyfilled.js"></script>
+<script>
+  const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
+</script>
+
+<style>
+  .plyr iframe[id^=youtube] {
+    top: -50%;
+    height: 200%;
+  }
+</style>
