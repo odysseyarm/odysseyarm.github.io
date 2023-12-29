@@ -1,0 +1,18 @@
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <p>
+          {{ site.copyright | escape }}
+        </p>
+        {%- if site.email -%}
+        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+        {%- endif -%}
+        <p>{{ site.phone_number }}</p>
+      </div>
+      <div class="column">
+        {%- include social.html -%}
+      </div>
+    </div>
+  </div>
+</footer>
