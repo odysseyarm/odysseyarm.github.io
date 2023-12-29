@@ -14,16 +14,19 @@
       </a>
     </div>
     <div id="nav-menu" class="navbar-menu">
-      {%- if page_paths -%}
-      <div class="navbar-start">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
         {%- for path in page_paths -%}
         {%- assign my_page = site.pages | where: "path", path | first -%}
         {%- if my_page.title -%}
-        <a class="navbar-item" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+        <a class="navbar-item" style="font-weight:bold; font-size: 16pt" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
         {%- endif -%}
         {%- endfor -%}
       </div>
-      {%- endif -%}
+      <div class="navbar-end">
+        <div class="navbar-item buttons">
+          <a class="button is-link" href="https://store.odysseyarm.com">Store</a>
+        </div>
+      </div>
     </div>
   </nav>
 </header>

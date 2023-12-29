@@ -7,14 +7,12 @@ layout: default
     <div class="hero-body">
       <div class = "container has-text-centered">
         <p class="title">
-          Odyssey Army Training System
+          Odyssey Armament
         </p>
         <p class="subtitle">
           Train the Way You Fight in Virtual Reality
         </p>
-        <div>
-          <img src="/assets/images/photos/Quest6DOFSetup-white-bis.jpg" alt="picture of odyssey attached to weapon decoy">
-        </div>
+          {% include carousel.html height="56.25" unit="%" %}
       </div>
     </div>
   </section>
@@ -53,6 +51,24 @@ layout: default
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="title">
+          Documentary
+        </p>
+        <div class="plyr__video-embed js-player">
+          <iframe
+            src="https://www.youtube.com/embed/DZjhf4UjN3s?origin=https://odysseyarm.com&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+            allowfullscreen
+            allowtransparency
+          ></iframe>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -77,5 +93,16 @@ layout: default
       {%- endfor -%}
     </ul>
   {%- endif -%}
-
 </div>
+
+<script src="https://cdn.plyr.io/3.6.9/plyr.polyfilled.js"></script>
+<script>
+  const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
+</script>
+
+<style>
+  .plyr iframe[id^=youtube] {
+    top: -50%;
+    height: 200%;
+  }
+</style>
