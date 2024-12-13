@@ -83,26 +83,6 @@ collections_config:
     disable_add: true
     disable_add_folder: true
     disable_file_actions: true
-  layouts:
-    path: _layouts
-    name: Layouts
-    icon: brush
-    disable_url: true
-    description: ''
-    _enabled_editors:
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
-  includes:
-    path: _includes
-    name: Includes
-    icon: add
-    disable_url: true
-    description: ''
-    _enabled_editors:
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
 _snippets_imports:
   jekyll: true
 timezone: America/Chicago
