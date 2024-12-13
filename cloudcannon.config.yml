@@ -85,58 +85,24 @@ collections_config:
     disable_file_actions: true
   layouts:
     path: _layouts
-    glob: []
     name: Layouts
-    singular_name:
     icon: brush
-    url:
     disable_url: true
-    include_developer_files:
-    documentation:
     description: ''
-    preview:
-    sort:
-    sort_options:
-    _editables:
     _enabled_editors:
-    _inputs:
-    _select_data:
-    _structures:
-    add_options:
-    create:
     disable_add: false
     disable_add_folder: false
     disable_file_actions: false
-    new_preview_url:
-    schemas:
-    schema_key:
   includes:
     path: _includes
-    glob:
     name: Includes
-    singular_name:
     icon: add
-    url:
     disable_url: true
-    include_developer_files:
-    documentation:
     description: ''
-    preview:
-    sort:
-    sort_options:
-    _editables:
     _enabled_editors:
-    _inputs:
-    _select_data:
-    _structures:
-    add_options:
-    create:
     disable_add: false
     disable_add_folder: false
     disable_file_actions: false
-    new_preview_url:
-    schemas:
-    schema_key:
 _snippets_imports:
   jekyll: true
 timezone: America/Chicago
