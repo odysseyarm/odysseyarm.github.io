@@ -1,15 +1,14 @@
 ---
 layout: default
 ---
-
 <div class="home">
-  <section class="hero is-halfheight has-background-white-bis editable">
+  <section class="hero is-halfheight has-background-white-bis">
     <div class="hero-body">
-      <div class = "container has-text-centered">
-        <p class="title">
+      <div class="container has-text-centered">
+        <p class="title editable">
           Odyssey Armament
         </p>
-        <p class="subtitle">
+        <p class="subtitle editable">
           Train the Way You Fight in Virtual Reality
         </p>
           {% include carousel.html height="56.25" unit="%" %}
@@ -19,35 +18,23 @@ layout: default
 
   <section class="hero is-halfheight has-background-black-ter editable">
     <div class="hero-body">
-      <div class = "container has-text-centered">
-        <p class="subtitle has-text-white-ter">
-          A programmable computer for your firearm.
-        </p>
-        <div>
-          <img src="/assets/images/photos/DSC09966-black-ter.jpg" alt="picture of odyssey attached to weapon decoy">
-        </div>
+      <div class="container has-text-centered">
+        <p class="subtitle has-text-white-ter"> A programmable computer for your firearm. </p>
+        <div><img alt="picture of odyssey attached to weapon decoy" src="/assets/images/photos/DSC09966-black-ter.jpg" /></div>
       </div>
     </div>
   </section>
 
   <section class="hero is-halfheight has-background-white-bis editable">
     <div class="hero-body">
-      <div class = "container has-text-centered">
-        <p class="title">
-          VR Integration
-        </p>
+      <div class="container has-text-centered">
+        <p class="title"> VR Integration </p>
         <div class="columns">
           <div class="column">
-            <p class="subtitle">
-              Combine with Odyssey VR Harness to create affordable Oculus Quest experiences
-            </p>
+            <p class="subtitle"> Combine with Odyssey VR Harness to create affordable Oculus Quest experiences </p>
             <div class="columns">
-              <div class="column">
-                <img src="/assets/images/photos/DSC09962-white-bis.jpg" alt="picture of odyssey vr harness with quest 1 controller">
-              </div>
-              <div class="column">
-                <img src="/assets/images/photos/quest2-5-white-bis.jpg" alt="picture of odyssey vr harness with quest 2 controller and quest 2">
-              </div>
+              <div class="column"><img alt="picture of odyssey vr harness with quest 1 controller" src="/assets/images/photos/DSC09962-white-bis.jpg" /></div>
+              <div class="column"><img alt="picture of odyssey vr harness with quest 2 controller and quest 2" src="/assets/images/photos/quest2-5-white-bis.jpg" /></div>
             </div>
           </div>
         </div>
@@ -62,37 +49,39 @@ layout: default
           Documentary
         </p>
         <div class="plyr__video-embed js-player">
-          <iframe
-            src="https://www.youtube.com/embed/DZjhf4UjN3s?origin=https://odysseyarm.com&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
-            allowfullscreen
-            allowtransparency
-          ></iframe>
+          <iframe src="https://www.youtube.com/embed/DZjhf4UjN3s?origin=https://odysseyarm.com&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" allowfullscreen allowtransparency></iframe>
         </div>
       </div>
     </div>
   </section>
 
-  {{ content }}
-
-  {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-  {%- endif -%}
+  <section class="hero is-halfheight has-background-white-bis">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="title editable">Blog Posts</p>
+          {%- if site.posts.size > 0 -%}
+            <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+            <ul class="post-list">
+              {%- for post in site.posts -%}
+              <li>
+                {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                <span class="post-meta">{{ post.date | date: date_format }}</span>
+                <h3>
+                  <a class="post-link" href="{{ post.url | relative_url }}">
+                    {{ post.title | escape }}
+                  </a>
+                </h3>
+                {%- if site.show_excerpts -%}
+                  {{ post.excerpt }}
+                {%- endif -%}
+              </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </p>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script src="https://cdn.plyr.io/3.6.9/plyr.polyfilled.js"></script>
