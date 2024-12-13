@@ -8,6 +8,8 @@ collections_config:
     name: Pages
     icon: wysiwyg
     disable_url: false
+    description: ''
+    _enabled_editors:
     disable_add: false
     disable_add_folder: false
     disable_file_actions: false
@@ -16,6 +18,8 @@ collections_config:
     name: Drafts
     icon: event
     disable_url: false
+    description: ''
+    _enabled_editors:
     _inputs:
       categories:
         type: multiselect
@@ -42,6 +46,8 @@ collections_config:
     name: Posts
     icon: event_available
     disable_url: false
+    description: ''
+    _enabled_editors:
     _inputs:
       categories:
         type: multiselect
@@ -83,6 +89,33 @@ collections_config:
     name: Layouts
     singular_name:
     icon: brush
+    url:
+    disable_url: true
+    include_developer_files:
+    documentation:
+    description: ''
+    preview:
+    sort:
+    sort_options:
+    _editables:
+    _enabled_editors:
+    _inputs:
+    _select_data:
+    _structures:
+    add_options:
+    create:
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    new_preview_url:
+    schemas:
+    schema_key:
+  includes:
+    path: _includes
+    glob:
+    name: Includes
+    singular_name:
+    icon: add
     url:
     disable_url: true
     include_developer_files:
