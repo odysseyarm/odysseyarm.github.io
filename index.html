@@ -58,7 +58,7 @@ layout: default
   <section class="hero is-halfheight has-background-white-bis">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h2 class="title editable">{{ page.list_title | default: "Blog Posts" }}</h2>
+        <h2 class="title">{{ page.list_title | default: "Blog Posts" }}</h2>
         <ul class="post-list">
           {%- for post in site.posts -%}
           <li>
