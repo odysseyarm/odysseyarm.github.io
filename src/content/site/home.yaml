@@ -274,7 +274,7 @@ sections:
           text: >-
             Experience Odyssey Arm technology firsthand at our demonstration
             facility or request an on-site presentation.
-          href: mailto:info@odysseyarm.com?subject=Demo%20request
+          href: 'mailto:info@odysseyarm.com?subject=Demo%20request&body=Name%3A%0D%0AOrganization%3A%0D%0AI%20am%20%28civilian%20/%20law%20enforcement%20/%20military%20/%20other%29%3A%0D%0ALocation%3A%0D%0ADemo%20at%20your%20facility%20or%20on-site%3A%0D%0AAnything%20else%20we%20should%20know%3A%0D%0A'
           highlight: true
         - title: Technical Support
           text: >-
