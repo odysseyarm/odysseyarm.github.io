@@ -34,7 +34,7 @@ export default defineConfig({
 			],
 			// Pages synced from odysseyarm/odyssey set their own editUrl.
 			editLink: {
-				baseUrl: 'https://github.com/odysseyarm/odysseyarm.github.io/edit/gh-pages/',
+				baseUrl: 'https://github.com/odysseyarm/odysseyarm.github.io/edit/main/',
 			},
 			sidebar: [
 				{ label: 'Using Odyssey', items: [{ autogenerate: { directory: 'docs/guides' } }] },
