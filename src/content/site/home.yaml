@@ -166,7 +166,7 @@ sections:
           Odyssey Desktop, our tracking software, runs on a Windows or Linux PC.
           It connects to every OATS tracker, tracks each one, and streams the
           data to the training software through the Odyssey client SDK.
-          Trackers connect with a USB cable or wirelessly, through one or more
+          Trackers connect with a USB cable, over Wi-Fi, or through one or more
           Odyssey Bluetooth dongles.
         rows:
           - label: Aiming Accuracy
@@ -185,7 +185,7 @@ sections:
             value: Projection screens, HDTVs, and computer monitors
             highlight: true
           - label: Connectivity
-            value: USB, or Bluetooth LE through the Odyssey dongle
+            value: USB, Wi-Fi, or Bluetooth LE through the Odyssey dongle
             highlight: false
           - label: OATS Trackers
             value: Depends on the computer (16 at once for SVT)
