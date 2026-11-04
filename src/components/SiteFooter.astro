@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo-white.png';
 import { getSettings } from '../lib/site';
 
 const settings = await getSettings();
@@ -8,6 +10,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
 	<div class="container cols">
 		<div>
+			<Image src={logo} alt="Odyssey Arm" height={36} densities={[1, 2]} class="logo" />
 			<p>© {year} {settings.copyright}</p>
 			{settings.email && <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
 			{settings.phone && <p>{settings.phone}</p>}
@@ -22,8 +25,8 @@ const year = new Date().getFullYear();
 <style>
 	.site-footer {
 		border-top: 1px solid var(--border);
-		background: var(--bg-alt);
-		padding-block: 2.5rem;
+		background: var(--bg-deep);
+		padding-block: 3.5rem;
 		font-size: 0.95rem;
 		color: var(--text-muted);
 	}
@@ -35,6 +38,11 @@ const year = new Date().getFullYear();
 	}
 	p {
 		margin: 0 0 0.35rem;
+	}
+	.cols :global(.logo) {
+		height: 36px;
+		width: auto;
+		margin-bottom: 1.25rem;
 	}
 	nav {
 		display: flex;

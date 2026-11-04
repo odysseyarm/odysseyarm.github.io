@@ -1,0 +1,20 @@
+---
+import Heading from './Heading.astro';
+import YouTube from '../YouTube.astro';
+import type { TwoTone } from './types';
+
+interface Props {
+	heading: TwoTone;
+	url: string | null;
+}
+const { heading, url } = Astro.props;
+---
+
+<section class="section">
+	<div class="container">
+		<Heading heading={heading} class="title" />
+		<div data-reveal>
+			<YouTube url={url} title={[heading.accent, heading.text].filter(Boolean).join(' ') || 'Video'} />
+		</div>
+	</div>
+</section>

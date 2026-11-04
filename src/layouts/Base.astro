@@ -13,7 +13,7 @@ interface Props {
 
 const settings = await getSettings();
 const { title, description, image } = Astro.props;
-const pageTitle = title ? `${title} | Odyssey` : 'Odyssey';
+const pageTitle = title ? `${title} | Odyssey Arm` : 'Odyssey Arm';
 const pageDescription = description || settings.description;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -26,7 +26,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<title>{pageTitle}</title>
 		<meta name="description" content={pageDescription} />
 		<link rel="canonical" href={canonical} />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.ico" sizes="48x48" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta name="theme-color" content="#272525" />
+		<script is:inline>document.documentElement.classList.add('js');</script>
 		<link rel="alternate" type="application/rss+xml" title="Odyssey news" href="/blog/rss.xml" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={pageTitle} />
@@ -43,5 +46,25 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 			<slot />
 		</main>
 		<SiteFooter />
+		<script>
+			// Reveal [data-reveal] blocks as they scroll into view. Blocks that
+			// appear together (on load, or a row of cards) start 90ms apart.
+			const reveal = (el: Element, delay: number) => {
+				(el as HTMLElement).style.setProperty('--reveal-delay', `${delay}ms`);
+				el.classList.add('revealed');
+			};
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries
+						.filter((entry) => entry.isIntersecting)
+						.forEach((entry, i) => {
+							reveal(entry.target, Math.min(i, 6) * 90);
+							observer.unobserve(entry.target);
+						});
+				},
+				{ rootMargin: '0px 0px -8% 0px', threshold: 0.1 },
+			);
+			document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+		</script>
 	</body>
 </html>

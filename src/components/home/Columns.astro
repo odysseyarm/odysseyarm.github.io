@@ -1,0 +1,64 @@
+---
+import Heading from './Heading.astro';
+import Paragraphs from './Paragraphs.astro';
+import type { HighlightItem, TwoTone } from './types';
+
+interface Props {
+	heading: TwoTone;
+	intro: string;
+	columns: readonly { title: string; text: string; items: readonly HighlightItem[]; highlight: boolean }[];
+}
+const { heading, intro, columns } = Astro.props;
+---
+
+<section class="section">
+	<div class="container">
+		<Heading heading={heading} class="title" />
+		{intro && <div class="lead"><Paragraphs text={intro} /></div>}
+		<div class="columns">
+			{
+				columns.map((col) => (
+					<div class:list={['column', { card: col.highlight }]} data-reveal>
+						<h3>{col.title}</h3>
+						<Paragraphs text={col.text} reveal={false} />
+						{col.items.length > 0 && (
+							<ul class="dots">
+								{col.items.map((item) => (
+									<li class:list={{ accent: item.highlight }}>{item.text}</li>
+								))}
+							</ul>
+						)}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.columns {
+		display: grid;
+		gap: 1.25rem;
+		margin-top: 2.5rem;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+	}
+	.column {
+		padding: 1.75rem;
+		border-radius: var(--radius-lg);
+		background: var(--bg-raised);
+	}
+	.column h3 {
+		font-size: 1.4rem;
+		margin-bottom: 0.75rem;
+	}
+	.card {
+		background: var(--accent);
+		color: var(--on-accent);
+	}
+	.card h3 {
+		color: var(--on-accent);
+	}
+	.card li::marker {
+		color: currentColor;
+	}
+</style>

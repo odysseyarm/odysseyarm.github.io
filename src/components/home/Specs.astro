@@ -1,0 +1,118 @@
+---
+import Heading from './Heading.astro';
+import Paragraphs from './Paragraphs.astro';
+import type { HighlightItem, TwoTone } from './types';
+
+interface Props {
+	heading: TwoTone;
+	left: { title: string; text: string; rows: readonly { label: string; value: string; highlight: boolean }[] };
+	right: {
+		title: string;
+		text: string;
+		listTitle: string;
+		items: readonly HighlightItem[];
+		calloutTitle: string;
+		calloutText: string;
+	};
+}
+const { heading, left, right } = Astro.props;
+---
+
+<section class="section">
+	<div class="container">
+		<Heading heading={heading} class="title" />
+		<div class="grid">
+			<div>
+				<h3 data-reveal>{left.title}</h3>
+				<Paragraphs text={left.text} />
+				{
+					left.rows.length > 0 && (
+						<dl class="specs" data-reveal>
+							{left.rows.map((row) => (
+								<div class:list={{ accent: row.highlight }}>
+									<dt>{row.label}</dt>
+									<dd>{row.value}</dd>
+								</div>
+							))}
+						</dl>
+					)
+				}
+			</div>
+			<div>
+				<h3 data-reveal>{right.title}</h3>
+				<Paragraphs text={right.text} />
+				{right.listTitle && <p data-reveal>{right.listTitle}</p>}
+				{
+					right.items.length > 0 && (
+						<ul class="dots" data-reveal>
+							{right.items.map((item) => (
+								<li class:list={{ accent: item.highlight }}>{item.text}</li>
+							))}
+						</ul>
+					)
+				}
+				{
+					(right.calloutTitle || right.calloutText) && (
+						<div class="callout" data-reveal>
+							{right.calloutTitle && <strong>{right.calloutTitle}</strong>}
+							{right.calloutText && <span>{right.calloutText}</span>}
+						</div>
+					)
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.grid {
+		display: grid;
+		gap: 3rem 4rem;
+		margin-top: 1rem;
+	}
+	@media (min-width: 56rem) {
+		.grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+	h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+	.specs {
+		margin: 2rem 0 0;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: var(--bg-raised);
+	}
+	.specs > div {
+		display: grid;
+		grid-template-columns: minmax(8rem, 2fr) 3fr;
+		gap: 1rem;
+		padding: 1rem 1.25rem;
+	}
+	.specs > div + div {
+		border-top: 1px solid var(--border);
+	}
+	dt {
+		font-weight: 600;
+		color: var(--text-strong);
+	}
+	.specs .accent dt {
+		color: inherit;
+	}
+	dd {
+		margin: 0;
+	}
+	.callout {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		margin-top: 2rem;
+		padding: 1.25rem 1.5rem;
+		border-radius: var(--radius);
+		background: var(--accent);
+		color: var(--on-accent);
+		font-size: 1.1rem;
+	}
+</style>

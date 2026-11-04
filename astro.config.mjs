@@ -21,10 +21,10 @@ export default defineConfig({
 	site: 'https://odysseyarm.com',
 	integrations: [
 		starlight({
-			title: 'Odyssey',
+			title: 'Odyssey Arm',
 			logo: {
-				light: './src/assets/images/odyssey-logo.png',
-				dark: './src/assets/images/odyssey-logo-white.png',
+				light: './src/assets/images/logo-dark.png',
+				dark: './src/assets/images/logo-white.png',
 				replacesTitle: true,
 			},
 			favicon: '/favicon.ico',

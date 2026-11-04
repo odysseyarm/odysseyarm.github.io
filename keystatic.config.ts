@@ -25,6 +25,39 @@ const link = (label: string) =>
 		{ label, layout: [6, 6] },
 	);
 
+// A heading in two colors, as on the front page: an orange part followed by a
+// white part, optionally on its own line.
+const twoToneHeading = (label: string) =>
+	fields.object(
+		{
+			accent: fields.text({ label: 'Orange part (optional)' }),
+			text: fields.text({ label: 'White part' }),
+			newLine: fields.checkbox({ label: 'Start the white part on a new line' }),
+		},
+		{ label, layout: [5, 5, 2] },
+	);
+
+// Item labels for the section list in the editor.
+const headingLabel = (heading: { fields: { accent: { value: string }; text: { value: string } } }) =>
+	[heading.fields.accent.value, heading.fields.text.value].filter(Boolean).join(' ');
+
+// Multi-line text where a blank line starts a new paragraph.
+const paragraphsField = (label: string) =>
+	fields.text({ label, description: 'Leave a blank line between paragraphs', multiline: true });
+
+// A list whose items can be shown in orange to stand out.
+const highlightList = (label: string) =>
+	fields.array(
+		fields.object(
+			{
+				text: fields.text({ label: 'Text', multiline: true }),
+				highlight: fields.checkbox({ label: 'Orange' }),
+			},
+			{ layout: [10, 2] },
+		),
+		{ label, itemLabel: (item) => item.fields.text.value || 'Item' },
+	);
+
 const markdownBody = (directory: string, publicPath: string) =>
 	fields.markdoc({
 		label: 'Content',
@@ -58,7 +91,7 @@ export default config({
 				tone: fields.select({
 					label: 'Style',
 					options: [
-						{ label: 'Brand (purple)', value: 'brand' },
+						{ label: 'Brand (orange)', value: 'brand' },
 						{ label: 'Neutral (dark)', value: 'neutral' },
 						{ label: 'Warning (amber)', value: 'warning' },
 					],
@@ -93,26 +126,162 @@ export default config({
 			schema: {
 				hero: fields.object(
 					{
-						title: fields.text({ label: 'Heading' }),
-						subtitle: fields.text({ label: 'Subheading', multiline: true }),
+						heading: twoToneHeading('Heading'),
+						text: paragraphsField('Text'),
 						primary: link('Main button'),
-						secondary: link('Second button'),
-						videos: fields.array(fields.url({ label: 'YouTube link' }), {
-							label: 'Videos next to the heading',
-							description: 'The first one plays in the hero. Leave empty to show no video.',
-							itemLabel: (item) => item.value || 'Video',
-						}),
+						secondary: link('Second button (optional)'),
+						image: uploadImage('Picture'),
+						imageAlt: fields.text({ label: 'Picture description (for screen readers)' }),
 					},
 					{ label: 'Top of the page' },
 				),
 				sections: fields.blocks(
 					{
+						columns: {
+							label: 'Columns with lists',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Columns',
+							schema: fields.object({
+								heading: twoToneHeading('Heading'),
+								intro: paragraphsField('Text under the heading'),
+								columns: fields.array(
+									fields.object({
+										title: fields.text({ label: 'Title' }),
+										text: paragraphsField('Text'),
+										items: highlightList('List'),
+										highlight: fields.checkbox({ label: 'Show as an orange card' }),
+									}),
+									{ label: 'Columns', itemLabel: (item) => item.fields.title.value || 'Column' },
+								),
+							}),
+						},
+						numbered: {
+							label: 'Numbered columns',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Numbered columns',
+							schema: fields.object({
+								heading: twoToneHeading('Heading'),
+								intro: paragraphsField('Text under the heading'),
+								columns: fields.array(
+									fields.object({
+										title: fields.text({ label: 'Title' }),
+										items: highlightList('Numbered list'),
+									}),
+									{ label: 'Columns', itemLabel: (item) => item.fields.title.value || 'Column' },
+								),
+							}),
+						},
+						list: {
+							label: 'Heading and list',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'List',
+							schema: fields.object({
+								heading: twoToneHeading('Heading'),
+								items: highlightList('List'),
+							}),
+						},
+						cards: {
+							label: 'Picture cards',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Picture cards',
+							schema: fields.object({
+								heading: twoToneHeading('Heading'),
+								subheading: twoToneHeading('Subheading'),
+								cards: fields.array(
+									fields.object({
+										image: uploadImage('Picture'),
+										imageAlt: fields.text({ label: 'Picture description' }),
+										title: fields.text({ label: 'Title' }),
+										text: paragraphsField('Text'),
+										highlight: fields.checkbox({ label: 'Orange title' }),
+									}),
+									{ label: 'Cards', itemLabel: (item) => item.fields.title.value || 'Card' },
+								),
+							}),
+						},
+						specs: {
+							label: 'Specifications',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Specifications',
+							schema: fields.object({
+								heading: twoToneHeading('Heading'),
+								left: fields.object(
+									{
+										title: fields.text({ label: 'Title' }),
+										text: paragraphsField('Text'),
+										rows: fields.array(
+											fields.object(
+												{
+													label: fields.text({ label: 'Name' }),
+													value: fields.text({ label: 'Value' }),
+													highlight: fields.checkbox({ label: 'Orange' }),
+												},
+												{ layout: [5, 5, 2] },
+											),
+											{ label: 'Table', itemLabel: (item) => item.fields.label.value || 'Row' },
+										),
+									},
+									{ label: 'Left column' },
+								),
+								right: fields.object(
+									{
+										title: fields.text({ label: 'Title' }),
+										text: paragraphsField('Text'),
+										listTitle: fields.text({ label: 'Text above the list' }),
+										items: highlightList('List'),
+										calloutTitle: fields.text({ label: 'Orange box: title' }),
+										calloutText: fields.text({ label: 'Orange box: text', multiline: true }),
+									},
+									{ label: 'Right column' },
+								),
+							}),
+						},
+						iconCards: {
+							label: 'Cards with icons',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Cards with icons',
+							schema: fields.object({
+								heading: twoToneHeading('Heading'),
+								intro: paragraphsField('Text under the heading'),
+								cards: fields.array(
+									fields.object({
+										icon: fields.select({
+											label: 'Icon',
+											options: [
+												{ label: 'Instructor', value: 'instructor' },
+												{ label: 'Store', value: 'store' },
+												{ label: 'Handshake', value: 'handshake' },
+												{ label: 'Target', value: 'target' },
+												{ label: 'Code', value: 'code' },
+											],
+											defaultValue: 'target',
+										}),
+										title: fields.text({ label: 'Title' }),
+										paragraphs: highlightList('Paragraphs'),
+									}),
+									{ label: 'Cards', itemLabel: (item) => item.fields.title.value || 'Card' },
+								),
+							}),
+						},
+						contact: {
+							label: 'Contact',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Contact',
+							schema: fields.object({
+								heading: twoToneHeading('Heading'),
+								subheading: fields.text({ label: 'Subheading' }),
+								text: paragraphsField('Text'),
+								cards: fields.array(
+									fields.object({
+										title: fields.text({ label: 'Title' }),
+										text: fields.text({ label: 'Text', multiline: true }),
+										href: fields.text({ label: 'Link (optional)' }),
+										highlight: fields.checkbox({ label: 'Orange card' }),
+									}),
+									{ label: 'Cards', itemLabel: (item) => item.fields.title.value || 'Card' },
+								),
+								button: link('Button'),
+							}),
+						},
 						feature: {
 							label: 'Text and picture',
-							itemLabel: (props) => props.fields.title.value || 'Text and picture',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Text and picture',
 							schema: fields.object({
-								title: fields.text({ label: 'Heading' }),
-								text: fields.text({ label: 'Text', multiline: true }),
+								heading: twoToneHeading('Heading'),
+								text: paragraphsField('Text'),
 								image: uploadImage('Picture'),
 								imageAlt: fields.text({ label: 'Picture description (for screen readers)' }),
 								imageSide: fields.select({
@@ -123,38 +292,23 @@ export default config({
 									],
 									defaultValue: 'right',
 								}),
-								dark: fields.checkbox({ label: 'Dark background' }),
-							}),
-						},
-						gallery: {
-							label: 'Pictures in a row',
-							itemLabel: (props) => props.fields.title.value || 'Pictures',
-							schema: fields.object({
-								title: fields.text({ label: 'Heading' }),
-								text: fields.text({ label: 'Text', multiline: true }),
-								images: fields.array(
-									fields.object({
-										image: uploadImage('Picture'),
-										alt: fields.text({ label: 'Picture description' }),
-									}),
-									{ label: 'Pictures', itemLabel: (item) => item.fields.alt.value || 'Picture' },
-								),
+								button: link('Button (optional)'),
 							}),
 						},
 						video: {
 							label: 'Video',
-							itemLabel: (props) => props.fields.title.value || 'Video',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Video',
 							schema: fields.object({
-								title: fields.text({ label: 'Heading' }),
+								heading: twoToneHeading('Heading'),
 								url: fields.url({ label: 'YouTube link' }),
 							}),
 						},
 						callToAction: {
 							label: 'Call to action',
-							itemLabel: (props) => props.fields.title.value || 'Call to action',
+							itemLabel: (props) => headingLabel(props.fields.heading) || 'Call to action',
 							schema: fields.object({
-								title: fields.text({ label: 'Heading' }),
-								text: fields.text({ label: 'Text', multiline: true }),
+								heading: twoToneHeading('Heading'),
+								text: paragraphsField('Text'),
 								button: link('Button'),
 							}),
 						},

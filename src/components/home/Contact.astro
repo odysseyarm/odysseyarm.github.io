@@ -1,0 +1,87 @@
+---
+import Heading from './Heading.astro';
+import Paragraphs from './Paragraphs.astro';
+import type { Link, TwoTone } from './types';
+
+interface Props {
+	heading: TwoTone;
+	subheading: string;
+	text: string;
+	cards: readonly { title: string; text: string; href: string; highlight: boolean }[];
+	button: Link;
+}
+const { heading, subheading, text, cards, button } = Astro.props;
+---
+
+<section class="section contact">
+	<div class="container">
+		<Heading heading={heading} class="title" />
+		{subheading && <p class="sub" data-reveal>{subheading}</p>}
+		<div class="lead"><Paragraphs text={text} /></div>
+		<div class="cards">
+			{
+				cards.map((card) => {
+					const Tag = card.href ? 'a' : 'div';
+					return (
+						<Tag href={card.href || undefined} class:list={['card', { highlight: card.highlight }]} data-reveal>
+							<h3>
+								{card.title}
+								{card.href && <span aria-hidden="true"> →</span>}
+							</h3>
+							<p>{card.text}</p>
+						</Tag>
+					);
+				})
+			}
+		</div>
+		{
+			button.href && (
+				<a class="button light" href={button.href} data-reveal>
+					{button.label}
+				</a>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.title {
+		margin-bottom: 0.25em;
+	}
+	.sub {
+		font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--text-strong);
+		margin-bottom: 1.5rem;
+	}
+	.cards {
+		display: grid;
+		gap: 1.25rem;
+		margin: 2.5rem 0 1.5rem;
+		padding-top: 2.5rem;
+		border-top: 1px solid var(--border);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+	}
+	.card {
+		display: block;
+		padding: 1.75rem;
+		border-radius: var(--radius-lg);
+		background: #5a5757;
+		color: #fff;
+		text-decoration: none;
+		transition: transform 0.4s var(--ease-out);
+	}
+	a.card:hover {
+		transform: translateY(-3px);
+	}
+	.card.highlight {
+		background: var(--accent);
+		color: var(--on-accent);
+	}
+	.card h3 {
+		color: inherit;
+		font-size: 1.4rem;
+		margin-bottom: 0.5rem;
+	}
+</style>

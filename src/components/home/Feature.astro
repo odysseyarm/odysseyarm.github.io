@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './Heading.astro';
+import Paragraphs from './Paragraphs.astro';
+import { uploadedImage } from '../../lib/images';
+import type { Link, TwoTone } from './types';
+
+interface Props {
+	heading: TwoTone;
+	text: string;
+	image: string | null;
+	imageAlt: string;
+	imageSide: 'left' | 'right';
+	button: Link;
+}
+const { heading, text, image, imageAlt, imageSide, button } = Astro.props;
+const picture = uploadedImage(image);
+---
+
+<section class="section">
+	<div class:list={['container', 'feature', { 'image-left': imageSide === 'left', 'no-image': !picture }]}>
+		<div>
+			<Heading heading={heading} class="title" />
+			<div class="lead"><Paragraphs text={text} /></div>
+			{button.href && <a class="button" href={button.href} data-reveal>{button.label}</a>}
+		</div>
+		{
+			picture && (
+				<div data-reveal>
+					<Image src={picture} alt={imageAlt} widths={[480, 800, 1200]} sizes="(min-width: 56rem) 34rem, 100vw" />
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.feature {
+		display: grid;
+		gap: 3rem;
+		align-items: center;
+	}
+	@media (min-width: 56rem) {
+		.feature:not(.no-image) {
+			grid-template-columns: 1fr 1fr;
+		}
+		.image-left > :first-child {
+			order: 2;
+		}
+	}
+	.feature :global(img) {
+		border-radius: var(--radius-lg);
+		width: 100%;
+	}
+	.button {
+		margin-top: 2rem;
+	}
+</style>

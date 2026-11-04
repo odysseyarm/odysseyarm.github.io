@@ -1,0 +1,45 @@
+---
+import Heading from './Heading.astro';
+import type { HighlightItem, TwoTone } from './types';
+
+interface Props {
+	heading: TwoTone;
+	items: readonly HighlightItem[];
+}
+const { heading, items } = Astro.props;
+---
+
+<section class="section">
+	<div class="container">
+		<Heading heading={heading} class="title" />
+		<ul class="features">
+			{
+				items.map((item) => (
+					<li class:list={{ accent: item.highlight }} data-reveal>
+						{item.text}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.features {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+	.features li {
+		padding: 0.7rem 1.2rem;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		font-size: 1.05rem;
+	}
+	.features li.accent {
+		border-color: var(--accent);
+	}
+</style>

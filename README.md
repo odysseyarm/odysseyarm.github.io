@@ -41,9 +41,27 @@ here; see below.
 | `src/content/docs/docs/{sdk,contributing}/` | **Generated.** Copied from [`odysseyarm/odyssey`](https://github.com/odysseyarm/odyssey/tree/master/docs) `docs/` by `scripts/sync-docs.mjs`; edit them there |
 | `src/assets/uploads/`, `src/assets/blog/` | Pictures uploaded in Keystatic |
 | `src/pages/` | Front page, news, downloads, and the Keystatic editor page |
-| `src/components/`, `src/layouts/`, `src/styles/` | Templates and styles |
+| `src/components/home/` | One component per front page section type in Keystatic |
+| `src/components/`, `src/layouts/` | Header, footer, banner and page layout |
+| `src/styles/tokens.css` | Brand colors, shared with the docs |
+| `src/styles/site.css` | Type, buttons, spacing and the scroll reveal animation |
 | `src/lib/releases.ts` | Reads the Odyssey Desktop downloads from GitHub releases |
 | `public/_redirects` | Redirects, including old URLs from the previous site |
+
+## Design notes
+
+The look follows the advisors' Gamma mock-up (charcoal and orange, two-tone
+headings, the same section order) with a calmer, Apple-like finish: a
+translucent sticky header, larger tighter headings, more space between
+sections and rounded images. Fonts are Inter, self-hosted.
+
+Anything with a `data-reveal` attribute fades in and rises 20px when it
+scrolls into view (1s, `cubic-bezier(0.22, 1, 0.36, 1)`, the mock-up's timing);
+blocks that appear together start 90ms apart. The script is at the bottom of
+`src/layouts/Base.astro`. Visitors who ask for reduced motion see no animation.
+
+Styling is plain CSS: shared variables in `tokens.css`, everything else scoped
+to the component that uses it.
 
 ## Developing
 

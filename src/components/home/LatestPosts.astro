@@ -12,10 +12,10 @@ const posts = (await getPosts()).slice(0, count ?? 3);
 
 {
 	posts.length > 0 && (
-		<section class="section alt">
+		<section class="section">
 			<div class="container">
-				<div class="head">
-					<h2 class="section-title">{title}</h2>
+				<div class="head" data-reveal>
+					<h2 class="title">{title}</h2>
 					<a href="/blog/">All news →</a>
 				</div>
 				<div class="posts">
@@ -36,8 +36,7 @@ const posts = (await getPosts()).slice(0, count ?? 3);
 	}
 	.posts {
 		display: grid;
-		gap: 1.5rem;
-		margin-top: 1.5rem;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+		gap: 1.25rem;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
 	}
 </style>

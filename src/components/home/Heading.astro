@@ -1,0 +1,22 @@
+---
+// A heading with an optional orange part before the white part (edited in
+// Keystatic as "Orange part" / "White part").
+interface Props {
+	heading: { accent: string; text: string; newLine: boolean };
+	as?: 'h1' | 'h2' | 'h3';
+	class?: string;
+}
+const { heading, as: Tag = 'h2', class: className } = Astro.props;
+const accent = heading.accent.trim();
+const text = heading.text.trim();
+---
+
+{
+	(accent || text) && (
+		<Tag class={className} data-reveal>
+			{accent && <span class="accent">{accent}</span>}
+			{accent && text && (heading.newLine ? <br /> : ' ')}
+			{text}
+		</Tag>
+	)
+}
