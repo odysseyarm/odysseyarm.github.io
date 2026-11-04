@@ -60,6 +60,11 @@ jobs:
       - run: npm ci
 
       - name: Build
+        env:
+          # Previews use the odyssey branch with the same name as this one when
+          # it exists (scripts/sync-docs.mjs falls back to master otherwise).
+          # Production always uses odyssey's master.
+          ODYSSEY_REF: ${{ env.IS_PRODUCTION == 'true' && 'master' || (github.head_ref || github.ref_name) }}
         run: npm run build
 
       - name: Type-check

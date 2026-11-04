@@ -5,7 +5,13 @@
 // Where the docs come from, first match wins:
 //   1. ODYSSEY_DOCS_DIR=/path/to/odyssey/docs
 //   2. ../odyssey/docs, when the odyssey repo is checked out next to this one
-//   3. a shallow clone of github.com/odysseyarm/odyssey at ODYSSEY_REF (default master)
+//   3. a shallow clone of github.com/odysseyarm/odyssey at ODYSSEY_REF, or at
+//      master when ODYSSEY_REF is unset or names a branch odyssey does not have.
+//      CI sets ODYSSEY_REF to the site branch being built, so a site branch and
+//      an odyssey branch with the same name preview their docs together.
+//
+// It fails when no pages were found, so the site is never published with
+// empty SDK docs; set ALLOW_EMPTY_DOCS=1 to build anyway.
 //
 // Pages there are plain Markdown that must also read well on GitHub, so this
 // script turns them into Starlight pages:
@@ -21,7 +27,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO = 'odysseyarm/odyssey';
-const REF = process.env.ODYSSEY_REF || 'master';
+const DEFAULT_REF = 'master';
+let REF = process.env.ODYSSEY_REF || DEFAULT_REF;
 const SECTIONS = ['sdk', 'contributing'];
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -36,6 +43,15 @@ async function findSource() {
 	await rm(cache, { recursive: true, force: true });
 	await mkdir(path.dirname(cache), { recursive: true });
 	const git = (...args) => execFileSync('git', args, { stdio: 'inherit' });
+	if (REF !== DEFAULT_REF) {
+		const found = execFileSync('git', ['ls-remote', '--heads', `https://github.com/${REPO}.git`, REF], {
+			encoding: 'utf8',
+		}).trim();
+		if (!found) {
+			console.log(`sync-docs: ${REPO} has no branch "${REF}"; using ${DEFAULT_REF}`);
+			REF = DEFAULT_REF;
+		}
+	}
 	git('clone', '--depth=1', '--filter=blob:none', '--sparse', '--branch', REF,
 		`https://github.com/${REPO}.git`, cache);
 	git('-C', cache, 'sparse-checkout', 'set', 'docs');
@@ -126,3 +142,10 @@ for (const section of SECTIONS) {
 	}
 }
 console.log(`sync-docs: ${count} pages`);
+if (count === 0 && !process.env.ALLOW_EMPTY_DOCS) {
+	console.error(
+		`sync-docs: no pages found in ${source}/{${SECTIONS.join(',')}}. ` +
+			'The SDK docs would be missing from the site. Set ALLOW_EMPTY_DOCS=1 to build anyway.',
+	);
+	process.exit(1);
+}

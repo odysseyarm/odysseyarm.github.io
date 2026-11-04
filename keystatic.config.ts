@@ -113,7 +113,10 @@ export default config({
 					label: 'Top menu',
 					itemLabel: (item) => item.fields.label.value || 'Menu item',
 				}),
-				storeUrl: fields.url({ label: 'Store link (button in the top menu)' }),
+				storeUrl: fields.url({
+					label: 'Store link',
+					description: 'Shows a Store button in the top menu. Leave empty to hide it.',
+				}),
 				email: fields.text({ label: 'Contact email' }),
 				phone: fields.text({ label: 'Contact phone' }),
 				copyright: fields.text({ label: 'Footer copyright line' }),
