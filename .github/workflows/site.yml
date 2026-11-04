@@ -2,7 +2,9 @@ name: Site
 
 # Builds the site on every push and pull request, and deploys it to Cloudflare:
 #   - the default branch (and rebuild triggers below) → production
-#   - pull requests from this repository → a preview URL posted on the PR
+#   - any other branch pushed to this repository → a preview at its own URL,
+#     shown in the run summary and commented on the branch's open pull request
+#     (Keystatic branches included)
 #
 # Rebuild triggers besides pushes:
 #   - repository_dispatch from odysseyarm/odyssey when its docs/ change or it
@@ -67,29 +69,44 @@ jobs:
       - name: Upload preview
         id: preview
         if: >-
-          github.event_name == 'pull_request'
-          && github.event.pull_request.head.repo.full_name == github.repository
+          github.event_name == 'push'
+          && env.IS_PRODUCTION != 'true'
           && env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          BRANCH: ${{ github.ref_name }}
         run: |
-          npx wrangler versions upload --preview-alias "pr-${{ github.event.pull_request.number }}" | tee upload.log
-          url=$(grep -oE 'https://pr-[^ ]+\.workers\.dev' upload.log | head -n1)
+          # Previews are versions of the production Worker, so it has to exist.
+          # The first run creates it (on workers.dev only; the custom domain is
+          # attached separately in the Cloudflare dashboard).
+          if ! npx wrangler deployments list > /dev/null 2>&1; then
+            echo "Worker does not exist yet; creating it with a first deploy."
+            npx wrangler deploy
+          fi
+          # Alias = branch name made DNS-safe, e.g. claude/foo-bar → claude-foo-bar.
+          alias=$(echo "$BRANCH" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+//' | cut -c1-30 | sed -E 's/-+$//')
+          npx wrangler versions upload --preview-alias "$alias" | tee upload.log
+          url=$(grep -oE "https://${alias}-[^ ]+\.workers\.dev" upload.log | head -n1)
           echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "### Preview: $url" >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Comment preview URL
+      - name: Comment preview URL on the pull request
         if: steps.preview.outputs.url != ''
         uses: actions/github-script@v8
         env:
           URL: ${{ steps.preview.outputs.url }}
         with:
           script: |
+            const { owner, repo } = context.repo;
+            const branch = context.ref.replace('refs/heads/', '');
+            const prs = await github.rest.pulls.list({ owner, repo, head: `${owner}:${branch}`, state: 'open' });
             const marker = '<!-- site-preview -->';
             const body = `${marker}\nPreview: ${process.env.URL}\n\nUpdated for ${context.sha.slice(0, 7)}.`;
-            const { owner, repo } = context.repo;
-            const issue_number = context.issue.number;
-            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number });
-            const existing = comments.find((c) => c.body?.startsWith(marker));
-            if (existing) {
-              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
-            } else {
-              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            for (const pr of prs.data) {
+              const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number: pr.number });
+              const existing = comments.find((c) => c.body?.startsWith(marker));
+              if (existing) {
+                await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+              } else {
+                await github.rest.issues.createComment({ owner, repo, issue_number: pr.number, body });
+              }
             }

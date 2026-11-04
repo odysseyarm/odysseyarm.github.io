@@ -92,7 +92,9 @@ The site is static files served by Cloudflare (`wrangler.jsonc`).
 `.github/workflows/site.yml` builds every push and pull request and:
 
 - deploys the default branch to production,
-- uploads each pull request as a preview and comments its URL on the PR,
+- uploads every other branch pushed here (including Keystatic branches) as a
+  preview at its own `workers.dev` URL, shown in the run summary and commented
+  on the branch's open pull request,
 - rebuilds when `odysseyarm/odyssey` changes its docs or publishes a release
   (its `docs-site.yml` workflow sends the event), and once a day as a fallback.
 
