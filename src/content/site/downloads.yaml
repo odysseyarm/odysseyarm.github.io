@@ -1,0 +1,11 @@
+title: Downloads
+intro: >-
+  Odyssey Desktop connects to your devices, calibrates them against your screen
+  and keeps their firmware up to date.
+notes:
+  - title: Which Windows installer do I need?
+    text: >-
+      Most computers should use the standard installer. Use the offline
+      installer on computers that must not reach the internet: it turns on
+      offline mode, so the app makes no internet connections, and it includes
+      the camera software that the standard installer downloads on demand.

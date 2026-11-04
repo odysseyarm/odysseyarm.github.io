@@ -1,0 +1,19 @@
+---
+// The Keystatic editor. It runs entirely in the browser; on the live site it
+// signs editors in through Keystatic Cloud, which commits their changes to
+// GitHub. public/_redirects sends every /keystatic/... URL to this page.
+import KeystaticAdmin from '../../components/KeystaticAdmin';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<title>Odyssey website editor</title>
+	</head>
+	<body>
+		<KeystaticAdmin client:only="react" />
+	</body>
+</html>

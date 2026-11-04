@@ -1,6 +1,10 @@
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-vendor
-node_modules/.bin
+node_modules/
+dist/
+.astro/
+.wrangler/
+.env
+.dev.vars
+
+# Copied in from odysseyarm/odyssey by scripts/sync-docs.mjs. Edit them there.
+src/content/docs/docs/sdk/
+src/content/docs/docs/contributing/

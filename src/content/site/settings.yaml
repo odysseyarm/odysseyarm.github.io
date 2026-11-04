@@ -1,0 +1,17 @@
+description: >-
+  The Odyssey is a programmable, wearable device for firearms that enables
+  advanced features such as live fire virtual reality training and firearms
+  safety applications.
+nav:
+  - label: Downloads
+    href: /downloads
+  - label: Docs
+    href: /docs/
+  - label: Developers
+    href: /docs/sdk/
+  - label: News
+    href: /blog/
+storeUrl: https://store.odysseyarm.com
+email: info@odysseyarm.com
+phone: (281) 899-0178
+copyright: Odyssey Arm

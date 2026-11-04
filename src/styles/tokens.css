@@ -1,0 +1,25 @@
+/* Brand colors shared by the marketing pages and the docs (Starlight). */
+:root {
+	--brand: #451367;
+	--brand-strong: #2e0c46;
+	--brand-soft: #efe7f6;
+	--on-brand: #ffffff;
+	--warning-bg: #fbbf24;
+	--warning-text: #1c1917;
+	--neutral-bg: #1c1b1f;
+	--neutral-text: #ffffff;
+}
+
+/* Starlight's dark theme (its default) */
+:root {
+	--sl-color-accent-low: #2a1240;
+	--sl-color-accent: #8b5cc4;
+	--sl-color-accent-high: #ddc9f2;
+}
+
+/* Starlight's light theme */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #e6d9f2;
+	--sl-color-accent: #451367;
+	--sl-color-accent-high: #2e0c46;
+}

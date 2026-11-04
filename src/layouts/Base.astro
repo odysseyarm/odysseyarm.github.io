@@ -1,0 +1,47 @@
+---
+import '../styles/site.css';
+import Banner from '../components/Banner.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { getSettings } from '../lib/site';
+
+interface Props {
+	title?: string;
+	description?: string | null;
+	image?: string;
+}
+
+const settings = await getSettings();
+const { title, description, image } = Astro.props;
+const pageTitle = title ? `${title} | Odyssey` : 'Odyssey';
+const pageDescription = description || settings.description;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{pageTitle}</title>
+		<meta name="description" content={pageDescription} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="alternate" type="application/rss+xml" title="Odyssey news" href="/blog/rss.xml" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:url" content={canonical} />
+		{image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+		<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+	</head>
+	<body>
+		<a class="sr-only" href="#main">Skip to content</a>
+		<Banner />
+		<SiteHeader />
+		<main id="main">
+			<slot />
+		</main>
+		<SiteFooter />
+	</body>
+</html>

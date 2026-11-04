@@ -1,0 +1,21 @@
+---
+title: Documentation
+description: Guides for using Odyssey and for building software on it.
+template: splash
+hero:
+  tagline: Set up your Odyssey, or build your own software on it.
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<CardGrid>
+	<Card title="Using Odyssey" icon="open-book">
+		Install Odyssey Desktop, connect your devices and calibrate them.
+		<LinkCard title="Getting started" href="/docs/guides/getting-started/" />
+	</Card>
+	<Card title="Building with Odyssey" icon="seti:rust">
+		Read tracking data in your game or simulator with the client SDK for C, C++,
+		C#, Python and Rust.
+		<LinkCard title="Client SDK" href="/docs/sdk/" />
+	</Card>
+</CardGrid>

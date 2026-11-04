@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/odyssey-logo.png';
+import logoWhite from '../assets/images/odyssey-logo-white.png';
+import { getSettings } from '../lib/site';
+
+const settings = await getSettings();
+const path = Astro.url.pathname;
+// Highlight the most specific menu item that contains this page.
+const current = settings.nav
+	.map((item) => item.href)
+	.filter((href) => href.startsWith('/') && href !== '/' && path.startsWith(href.replace(/\/$/, '')))
+	.sort((a, b) => b.length - a.length)[0];
+---
+
+<header class="site-header">
+	<div class="container bar">
+		<a href="/" class="brand" aria-label="Odyssey home">
+			<Image src={logo} alt="" class="logo light" height={36} />
+			<Image src={logoWhite} alt="" class="logo dark" height={36} />
+		</a>
+		<button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+			<span></span><span></span><span></span>
+		</button>
+		<nav id="site-nav" aria-label="Main">
+			{
+				settings.nav.map((item) => (
+					<a href={item.href} aria-current={item.href === current ? 'page' : undefined}>
+						{item.label}
+					</a>
+				))
+			}
+			{settings.storeUrl && <a class="button" href={settings.storeUrl}>Store</a>}
+		</nav>
+	</div>
+</header>
+
+<script>
+	const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+	toggle?.addEventListener('click', () => {
+		const open = toggle.getAttribute('aria-expanded') !== 'true';
+		toggle.setAttribute('aria-expanded', String(open));
+	});
+</script>
+
+<style>
+	.site-header {
+		border-bottom: 1px solid var(--border);
+		background: var(--bg);
+		position: sticky;
+		top: 0;
+		z-index: 10;
+	}
+	.bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		min-height: 4rem;
+	}
+	.brand :global(.logo) {
+		height: 36px;
+		width: auto;
+	}
+	.brand :global(.logo.dark) {
+		display: none;
+	}
+	@media (prefers-color-scheme: dark) {
+		.brand :global(.logo.light) {
+			display: none;
+		}
+		.brand :global(.logo.dark) {
+			display: block;
+		}
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+	}
+	nav a:not(.button) {
+		color: var(--text);
+		text-decoration: none;
+		font-weight: 600;
+	}
+	nav a[aria-current='page'],
+	nav a:not(.button):hover {
+		color: var(--link);
+	}
+	.menu-toggle {
+		display: none;
+		background: none;
+		border: 0;
+		cursor: pointer;
+		padding: 0.5rem;
+	}
+	.menu-toggle span {
+		display: block;
+		width: 1.4rem;
+		height: 2px;
+		margin: 5px 0;
+		background: var(--text);
+	}
+	@media (max-width: 47.99rem) {
+		.menu-toggle {
+			display: block;
+		}
+		nav {
+			display: none;
+			position: absolute;
+			inset: 100% 0 auto 0;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
+			padding: 0.5rem var(--gutter) 1rem;
+			background: var(--bg);
+			border-bottom: 1px solid var(--border);
+		}
+		.menu-toggle[aria-expanded='true'] + nav {
+			display: flex;
+		}
+		nav a:not(.button) {
+			padding: 0.75rem 0;
+		}
+		nav .button {
+			margin-top: 0.5rem;
+			justify-content: center;
+		}
+	}
+</style>

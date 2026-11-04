@@ -1,0 +1,52 @@
+hero:
+  title: Odyssey Armament
+  subtitle: Train the way you fight in virtual reality.
+  primary:
+    label: Buy now
+    href: https://store.odysseyarm.com
+  secondary:
+    label: For developers
+    href: /docs/sdk/
+  videos:
+    - https://www.youtube.com/watch?v=TaLoeD_lgkc
+    - https://www.youtube.com/watch?v=OvrlWw4WyrQ
+sections:
+  - discriminant: feature
+    value:
+      title: A programmable computer for your firearm
+      text: >-
+        Odyssey mounts on your weapon and tracks where it points, so live fire
+        and virtual training use the gun you already carry.
+      image: /src/assets/uploads/sections/0/value/image.jpg
+      imageAlt: Odyssey attached to a weapon decoy
+      imageSide: right
+      dark: true
+  - discriminant: gallery
+    value:
+      title: VR integration
+      text: >-
+        Combine with the Odyssey VR Harness to create affordable Oculus Quest
+        experiences.
+      images:
+        - image: /src/assets/uploads/sections/1/value/images/0/image.jpg
+          alt: Odyssey VR harness with a Quest 1 controller
+        - image: /src/assets/uploads/sections/1/value/images/1/image.jpg
+          alt: Odyssey VR harness with a Quest 2 controller and headset
+  - discriminant: video
+    value:
+      title: Documentary
+      url: https://www.youtube.com/watch?v=DZjhf4UjN3s
+  - discriminant: callToAction
+    value:
+      title: Build with Odyssey
+      text: >-
+        The client SDK gives your game or simulator tracking data from Odyssey
+        in C, C++, C#, Python and Rust. Unity projects that integrate with the
+        ATS are available; contact us for details.
+      button:
+        label: Read the SDK docs
+        href: /docs/sdk/
+  - discriminant: latestPosts
+    value:
+      title: News
+      count: 3
