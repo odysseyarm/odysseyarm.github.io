@@ -72,7 +72,11 @@ jobs:
 
       - name: Deploy to production
         if: env.IS_PRODUCTION == 'true' && env.CLOUDFLARE_API_TOKEN != ''
-        run: npx wrangler deploy
+        run: |
+          npx wrangler deploy
+          # Also publish this build at the "main" preview address, so
+          # Keystatic's Preview button (keystatic.config.ts) works on main too.
+          npx wrangler versions upload --preview-alias main
 
       - name: Upload preview
         id: preview
