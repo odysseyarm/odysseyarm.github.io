@@ -1,28 +1,30 @@
 hero:
   heading:
     accent: Digital Marksmanship
-    text: in your OWN HOME.
+    text: in your OWN HOME
     newLine: true
-  text: |-
-    Odyssey Arm delivers next-generation digital marksmanship solutions that transform how civilians, law enforcement, and military personnel train.
+  text: >-
+    Odyssey Arm delivers next-generation digital marksmanship solutions that
+    transform how civilians, law enforcement, and military personnel train.
 
-    Our US Army-funded next generation Soldier Virtual Trainer technology enables immersive training experiences that accelerate skill development and enhance shooting accuracy across all proficiency levels.
+
+    Our US Army-funded next generation Soldier Virtual Trainer technology
+    enables immersive training experiences that accelerate skill development and
+    enhance shooting accuracy across all proficiency levels.
   primary:
     label: Watch our Demo
     href: https://youtu.be/zRKGqjDUpmE
-  secondary:
-    label: ''
-    href: ''
-  image: /src/assets/uploads/home/hero.jpg
-  imageAlt: People training with Odyssey at home, with a police department, and in the Army
+  secondary: {}
+  image: /src/assets/uploads/hero/image.jpg
+  imageAlt: >-
+    People training with Odyssey at home, with a police department, and in the
+    Army
 sections:
   - discriminant: columns
     value:
       heading:
-        accent: ''
         text: Advanced Training Systems for Civilians, Law Enforcement, and Military
         newLine: false
-      intro: ''
       columns:
         - title: Civilian Shooters
           text: >-
@@ -72,7 +74,6 @@ sections:
   - discriminant: list
     value:
       heading:
-        accent: ''
         text: 'Every Solution provides high end features such as:'
         newLine: false
       items:
@@ -88,23 +89,29 @@ sections:
         newLine: true
       subheading:
         accent: You can now train in your OWN HOME with your OWN GUNS.
-        text: Play 'Call of Duty' on your own console with your own pistol and rifle!
+        text: >-
+          Play 'Call of Duty' on your own console with your own pistol and
+          rifle!
         newLine: true
       cards:
-        - image: /src/assets/uploads/home/smart-hardware.jpg
+        - image: /src/assets/uploads/sections/2/value/cards/0/image.jpg
           imageAlt: Odyssey tracker mounted on a pistol
           title: Smart Hardware
-          text: Precision sensors capture every movement, position, and trigger pull.
+          text: >-
+            Precision sensors capture every movement, position, and trigger
+            pull.
           highlight: true
-        - image: /src/assets/uploads/home/ir-markers.jpg
+        - image: /src/assets/uploads/sections/2/value/cards/1/image.jpg
           imageAlt: Odyssey IR markers, cables and USB dongle
           title: Software (IR Marker System)
           text: >-
             Constellation Tracking allows you to use computer monitors, HDTVs,
             and projection screens.
           highlight: false
-        - image: /src/assets/uploads/home/civilian-at-home.jpg
-          imageAlt: A shooter next to a TV showing his score, with IR markers around the screen
+        - image: /src/assets/uploads/sections/2/value/cards/2/image.jpg
+          imageAlt: >-
+            A shooter next to a TV showing his score, with IR markers around the
+            screen
           title: Civilian Training at Home
           text: Civilian Training at Home with cutting edge military features.
           highlight: true
@@ -140,7 +147,9 @@ sections:
               highlight: false
             - text: Works with projection screens, HDTVs, and computer monitors
               highlight: false
-            - text: ParaLXR - turns your screen into a VR experience, no headsets needed
+            - text: >-
+                ParaLXR - turns your screen into a VR experience, no headsets
+                needed
               highlight: true
             - text: True ballistics simulation from weapon muzzle
               highlight: false
@@ -149,7 +158,6 @@ sections:
   - discriminant: specs
     value:
       heading:
-        accent: ''
         text: Technical Specifications and Product Documentation
         newLine: false
       left:
@@ -183,10 +191,15 @@ sections:
             highlight: false
       right:
         title: Integration Capabilities
-        text: |-
-          OATS system has been designed to work with the simulation engines used in simulators. We support VBS4, Unity (other engines integrators can ask on demand), run on Win64 and Windows for ARM, and have an Auto Update of Middleware (auto update of firmware in future release).
+        text: >-
+          OATS system has been designed to work with the simulation engines used
+          in simulators. We support VBS4, Unity (other engines integrators can
+          ask on demand), run on Win64 and Windows for ARM, and have an Auto
+          Update of Middleware (auto update of firmware in future release).
 
-          General Dynamics has true ballistic software that currently use our solution, and Laser Shot content works with our system.
+
+          General Dynamics has true ballistic software that currently use our
+          solution, and Laser Shot content works with our system.
         listTitle: 'Our Tech also works with:'
         items:
           - text: Green Gas and CO2 Airsoft Weapons
@@ -239,7 +252,9 @@ sections:
                 Retailers can run a virtual gun range in your store, livening
                 the customer experience.
               highlight: false
-            - text: OATS opens up new sources to service, product, and recurring revenue.
+            - text: >-
+                OATS opens up new sources to service, product, and recurring
+                revenue.
               highlight: false
         - icon: handshake
           title: Development Partners
@@ -262,19 +277,21 @@ sections:
     value:
       heading:
         accent: Let's stay connected!
-        text: ''
         newLine: false
       subheading: We're here for you.
-      text: |-
+      text: >-
         Our team is ready to help you become a better shooter.
 
-        Whether you're becoming a distributor, upgrading your marksmanship, or exploring partnership opportunities, we'd love to speak with you.
+
+        Whether you're becoming a distributor, upgrading your marksmanship, or
+        exploring partnership opportunities, we'd love to speak with you.
       cards:
         - title: Schedule a Demo
           text: >-
             Experience Odyssey Arm technology firsthand at our demonstration
             facility or request an on-site presentation.
-          href: 'mailto:info@odysseyarm.com?subject=Demo%20request&body=Name%3A%0D%0AOrganization%3A%0D%0AI%20am%20%28civilian%20/%20law%20enforcement%20/%20military%20/%20other%29%3A%0D%0ALocation%3A%0D%0ADemo%20at%20your%20facility%20or%20on-site%3A%0D%0AAnything%20else%20we%20should%20know%3A%0D%0A'
+          href: >-
+            mailto:info@odysseyarm.com?subject=Demo%20request&body=Name%3A%0D%0AOrganization%3A%0D%0AI%20am%20%28civilian%20/%20law%20enforcement%20/%20military%20/%20other%29%3A%0D%0ALocation%3A%0D%0ADemo%20at%20your%20facility%20or%20on-site%3A%0D%0AAnything%20else%20we%20should%20know%3A%0D%0A
           highlight: true
         - title: Documentation
           text: >-
