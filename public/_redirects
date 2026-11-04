@@ -1,9 +1,14 @@
 # Cloudflare redirect rules (https://developers.cloudflare.com/workers/static-assets/redirects/)
 
 # Old URLs from the Jekyll site
-/developers                      /docs/sdk/                                301
-/developers/                     /docs/sdk/                                301
 /2023/12/29/shot-show.html       /blog/phase-ii-soldier-virtual-trainer/   301
+
+# The developer docs moved from /docs/sdk to /developers, and the contributor
+# docs live on GitHub only.
+/docs/sdk                        /developers/                              301
+/docs/sdk/*                      /developers/:splat                        301
+/docs/contributing               https://github.com/odysseyarm/odyssey/tree/master/docs/contributing   301
+/docs/contributing/*             https://github.com/odysseyarm/odyssey/tree/master/docs/contributing   301
 
 # The Keystatic editor is a single page that handles its own URLs.
 /keystatic/*                     /keystatic/                               200

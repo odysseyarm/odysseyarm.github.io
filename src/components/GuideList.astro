@@ -1,0 +1,18 @@
+---
+// Link cards for every product guide (src/content/docs/docs/guides, edited in
+// Keystatic), in sidebar order, so new guides appear on /docs/ by themselves.
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { getCollection } from 'astro:content';
+
+const guides = (await getCollection('docs', ({ id }) => id.startsWith('docs/guides/'))).sort(
+	(a, b) =>
+		(a.data.sidebar.order ?? Number.MAX_SAFE_INTEGER) - (b.data.sidebar.order ?? Number.MAX_SAFE_INTEGER) ||
+		a.data.title.localeCompare(b.data.title),
+);
+---
+
+<CardGrid>
+	{guides.map((guide) => <LinkCard title={guide.data.title} href={`/${guide.id}/`} description={guide.data.description} />)}
+	<LinkCard title="Downloads" href="/downloads/" description="The latest Odyssey Desktop for Windows and Linux." />
+	<LinkCard title="Contact us" href="mailto:info@odysseyarm.com" description="Questions about your Odyssey? Email info@odysseyarm.com." />
+</CardGrid>

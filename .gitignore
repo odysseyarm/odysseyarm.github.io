@@ -6,5 +6,4 @@ dist/
 .dev.vars
 
 # Copied in from odysseyarm/odyssey by scripts/sync-docs.mjs. Edit them there.
-src/content/docs/docs/sdk/
-src/content/docs/docs/contributing/
+src/content/docs/developers/

@@ -1,7 +1,86 @@
 @import '@fontsource-variable/inter';
 
-/* Adjustments to Starlight for the docs at /docs. */
+/* Adjustments to Starlight for the docs at /docs and /developers. */
 .site-title img {
 	height: 2rem;
 	width: auto;
+}
+
+/* ---------------------------------------------------------------- Diagrams
+   The developer docs' SVG diagrams (odysseyarm/odyssey docs/sdk/images) are
+   inlined by scripts/sync-docs.mjs and colored through these variables, so
+   they follow the light/dark switch. As plain images on GitHub they fall back
+   to their own colors. */
+
+:root {
+	--oa-figure-bg: #242222;
+	--oa-dg-fg: #ece9e9;
+	--oa-dg-muted: #a9a4a3;
+	--oa-dg-line: #46413f;
+	--oa-dg-faint: #2e2b2b;
+	--oa-dg-surface: #2d2a2a;
+	--oa-dg-panel: var(--oa-figure-bg);
+	--oa-dg-x: #ff7b72;
+	--oa-dg-y: #4ac26b;
+	--oa-dg-z: #6cb6ff;
+	--oa-dg-accent: #ffa44f;
+	--oa-dg-accentsoft: #3b2a1b;
+	--oa-dg-dev: #8b949e;
+	--oa-dg-devtop: #b1bac4;
+	--oa-dg-devside: #6e7681;
+	--oa-dg-trk: #e8893a;
+	--oa-dg-trktop: #ffb877;
+	--oa-dg-trkside: #b8661c;
+	--oa-dg-font: var(--sl-font);
+	--oa-dg-mono: var(--sl-font-mono);
+}
+
+:root[data-theme='light'] {
+	--oa-figure-bg: #f7f7f8;
+	--oa-dg-fg: #1f2328;
+	--oa-dg-muted: #59636e;
+	--oa-dg-line: #d1d9e0;
+	--oa-dg-faint: #eef1f4;
+	--oa-dg-surface: #ffffff;
+	--oa-dg-x: #cf222e;
+	--oa-dg-y: #1a7f37;
+	--oa-dg-z: #0969da;
+	--oa-dg-accent: #b35900;
+	--oa-dg-accentsoft: #fff1e3;
+	--oa-dg-dev: #57606a;
+	--oa-dg-devtop: #8c959f;
+	--oa-dg-devside: #424a53;
+	--oa-dg-trk: #d97a1e;
+	--oa-dg-trktop: #f0a25a;
+	--oa-dg-trkside: #a85a12;
+}
+
+.sl-markdown-content .oa-figure {
+	margin: 2rem 0;
+}
+
+.sl-markdown-content .oa-diagram {
+	overflow-x: auto;
+	padding: 1rem;
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 0.75rem;
+	background: var(--oa-figure-bg);
+}
+
+/* Diagrams keep a readable size on phones and scroll sideways instead. */
+.sl-markdown-content .oa-diagram svg {
+	display: block;
+	width: 100%;
+	min-width: 34rem;
+	max-width: 52rem;
+	height: auto;
+	margin-inline: auto;
+}
+
+.sl-markdown-content .oa-figure figcaption {
+	margin-top: 0.6rem;
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-xs);
+	line-height: 1.5;
+	text-align: center;
 }
