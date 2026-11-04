@@ -1,11 +1,13 @@
 ---
 // Site-wide announcement, edited in Keystatic under "Announcement banner".
+import PreviewNotice from './PreviewNotice.astro';
 import { getBanner, isExternal } from '../lib/site';
 
 const banner = await getBanner();
 const href = banner.link.href?.trim();
 ---
 
+<PreviewNotice />
 {
 	banner.enabled && banner.message && (
 		<div class:list={['site-banner', banner.tone]} data-pagefind-ignore>
