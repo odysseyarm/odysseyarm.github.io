@@ -33,7 +33,6 @@
 	--oa-dg-trkside: #b8661c;
 	--oa-dg-hand: #5d5856;
 	--oa-dg-handline: #dcd7d6;
-	--oa-dg-handshade: #4a4544;
 	--oa-dg-font: var(--sl-font);
 	--oa-dg-mono: var(--sl-font-mono);
 }
@@ -58,7 +57,6 @@
 	--oa-dg-trkside: #a85a12;
 	--oa-dg-hand: #e9e6e5;
 	--oa-dg-handline: #454040;
-	--oa-dg-handshade: #c9c3c1;
 }
 
 .sl-markdown-content .oa-figure {
