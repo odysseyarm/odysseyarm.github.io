@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/blog';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+const { post } = Astro.props;
+const { title, date, summary, cover, coverAlt } = post.data;
+---
+
+<article class="post-card" data-reveal>
+	{cover && <Image src={cover} alt={coverAlt ?? ''} widths={[400, 800]} sizes="(min-width: 48rem) 33vw, 100vw" />}
+	<div>
+		<time datetime={date.toISOString()} class="muted">{formatDate(date)}</time>
+		<h3><a href={`/blog/${post.id}/`}>{title}</a></h3>
+		{summary && <p class="muted">{summary}</p>}
+	</div>
+</article>
+
+<style>
+	.post-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1.25rem;
+		border-radius: var(--radius-lg);
+		background: var(--bg-raised);
+	}
+	.post-card :global(img) {
+		border-radius: calc(var(--radius) - 4px);
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		width: 100%;
+	}
+	h3 {
+		margin: 0.25rem 0 0.5rem;
+		font-size: 1.15rem;
+	}
+	h3 a {
+		color: var(--text-strong);
+		text-decoration: none;
+	}
+	h3 a:hover {
+		color: var(--link);
+	}
+	p {
+		margin: 0;
+	}
+</style>

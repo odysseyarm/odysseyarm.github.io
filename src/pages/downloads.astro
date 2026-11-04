@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+import { formatDate } from '../lib/blog';
+import { formatSize, latestDesktopRelease } from '../lib/releases';
+import { getDownloadsPage } from '../lib/site';
+
+// The text is edited in Keystatic under "Downloads page". The files come from
+// the latest Odyssey Desktop release on GitHub when the site is built.
+const page = await getDownloadsPage();
+const release = await latestDesktopRelease();
+---
+
+<Base title={page.title} description={page.intro}>
+	<section class="section">
+		<div class="container">
+			<h1 class="title">{page.title}</h1>
+			{page.intro && <p class="lead">{page.intro}</p>}
+
+			{
+				release ? (
+					<div class="release">
+						<h2>
+							Odyssey Desktop {release.version}
+						</h2>
+						<p class="muted">
+							Released {formatDate(release.date)} · <a href={release.url}>Release notes</a>
+						</p>
+						<ul class="files">
+							{release.downloads.map((d) => (
+								<li>
+									<a class="button" href={d.url}>
+										{d.label}
+									</a>
+									<span class="muted">
+										{d.file} · {formatSize(d.size)}
+									</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				) : (
+					<p>
+						No release is available right now. See{' '}
+						<a href="https://github.com/odysseyarm/odyssey/releases">all releases on GitHub</a>.
+					</p>
+				)
+			}
+
+			{
+				page.notes.map((note) => (
+					<div class="note">
+						<h2>{note.title}</h2>
+						<p>{note.text}</p>
+					</div>
+				))
+			}
+
+			<div class="note">
+				<h2>Building software for Odyssey?</h2>
+				<p>
+					The client SDK and how to install it in each language are covered in the{' '}
+					<a href="/docs/sdk/">SDK documentation</a>.
+				</p>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.release {
+		margin-top: 2rem;
+		padding: 1.5rem;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--bg-raised);
+	}
+	.release h2 {
+		margin: 0;
+	}
+	.files {
+		list-style: none;
+		padding: 0;
+		margin: 1.5rem 0 0;
+		display: grid;
+		gap: 1rem;
+	}
+	.files li {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem 1rem;
+	}
+	.files .muted {
+		overflow-wrap: anywhere;
+	}
+	.note {
+		max-width: 44rem;
+		margin-top: 2.5rem;
+	}
+	.note h2 {
+		font-size: 1.25rem;
+		margin-bottom: 0.25rem;
+	}
+</style>

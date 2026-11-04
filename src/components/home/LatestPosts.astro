@@ -1,0 +1,42 @@
+---
+import PostCard from '../PostCard.astro';
+import { getPosts } from '../../lib/blog';
+
+interface Props {
+	title: string;
+	count: number | null;
+}
+const { title, count } = Astro.props;
+const posts = (await getPosts()).slice(0, count ?? 3);
+---
+
+{
+	posts.length > 0 && (
+		<section class="section">
+			<div class="container">
+				<div class="head" data-reveal>
+					<h2 class="title">{title}</h2>
+					<a href="/blog/">All news →</a>
+				</div>
+				<div class="posts">
+					{posts.map((post) => <PostCard post={post} />)}
+				</div>
+			</div>
+		</section>
+	)
+}
+
+<style>
+	.head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+	.posts {
+		display: grid;
+		gap: 1.25rem;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+	}
+</style>

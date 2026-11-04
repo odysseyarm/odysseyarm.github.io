@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../lib/blog';
+
+const posts = await getPosts();
+---
+
+<Base title="News" description="News and announcements from Odyssey Arm.">
+	<section class="section">
+		<div class="container">
+			<h1 class="title">News</h1>
+			<div class="posts">
+				{posts.map((post) => <PostCard post={post} />)}
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.posts {
+		display: grid;
+		gap: 1.5rem;
+		margin-top: 2rem;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+	}
+</style>

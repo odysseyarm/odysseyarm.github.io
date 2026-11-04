@@ -1,0 +1,208 @@
+/* Marketing pages: home, news, downloads. The docs use Starlight's own styles. */
+@import '@fontsource-variable/inter';
+@import './tokens.css';
+
+:root {
+	color-scheme: dark;
+	--bg: #272525;
+	--bg-raised: #2f2c2c;
+	--bg-deep: #1f1d1d;
+	--text: #e5e0df;
+	--text-strong: #ffffff;
+	--text-muted: #b5b0af;
+	--border: #45403f;
+	--link: var(--accent);
+	--radius: 14px;
+	--radius-lg: 22px;
+	--max: 72rem;
+	--gutter: clamp(1.25rem, 5vw, 3rem);
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	font-family: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	font-size: 100%;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-padding-top: 5rem;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-size: 1.0625rem;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+a {
+	color: var(--link);
+	text-underline-offset: 0.18em;
+}
+
+h1,
+h2,
+h3 {
+	color: var(--text-strong);
+	line-height: 1.12;
+	letter-spacing: -0.03em;
+	font-weight: 700;
+	text-wrap: balance;
+	margin: 0;
+}
+
+p {
+	margin: 0 0 1em;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+.accent {
+	color: var(--accent);
+}
+
+.container {
+	width: 100%;
+	max-width: var(--max);
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+
+.section {
+	padding-block: clamp(4rem, 10vw, 8rem);
+}
+
+.section + .section {
+	padding-top: clamp(2rem, 5vw, 4rem);
+}
+
+.display {
+	font-size: clamp(2.5rem, 5vw, 3.4rem);
+	letter-spacing: -0.035em;
+	line-height: 1.04;
+}
+
+.title {
+	font-size: clamp(2rem, 4.6vw, 3.25rem);
+	margin-bottom: 0.6em;
+}
+
+.lead {
+	font-size: clamp(1.125rem, 1.6vw, 1.3rem);
+	line-height: 1.55;
+	color: var(--text);
+	max-width: 46rem;
+}
+
+.muted {
+	color: var(--text-muted);
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+	padding: 0.8em 1.4em;
+	border-radius: 999px;
+	border: 1px solid var(--accent);
+	background: var(--accent);
+	color: var(--on-accent);
+	font-weight: 600;
+	font-size: 1rem;
+	text-decoration: none;
+	line-height: 1.2;
+	transition:
+		background-color 0.2s,
+		transform 0.2s var(--ease-out);
+}
+
+.button:hover {
+	background: var(--accent-strong);
+	transform: translateY(-1px);
+}
+
+.button.secondary {
+	background: transparent;
+	color: var(--text-strong);
+	border-color: var(--border);
+}
+
+.button.secondary:hover {
+	border-color: var(--text-muted);
+}
+
+.button.light {
+	background: #fff;
+	border-color: #fff;
+	color: #111;
+}
+
+ul.dots {
+	padding-left: 1.2em;
+	margin: 1em 0 0;
+}
+
+ul.dots li {
+	margin-bottom: 0.45em;
+}
+
+:where(ul.dots) li::marker {
+	color: var(--text-muted);
+}
+
+.prose {
+	max-width: 44rem;
+}
+
+.prose img {
+	border-radius: var(--radius);
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* Scroll reveal: blocks fade in and rise 20px as they come into view (the same
+   motion as the previous site). src/layouts/Base.astro adds the classes; with
+   JavaScript off, or with reduced motion requested, everything just shows. */
+.js [data-reveal] {
+	opacity: 0;
+	transform: translateY(20px);
+	transition:
+		opacity 1s var(--ease-out),
+		transform 1s var(--ease-out);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js [data-reveal].revealed {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.js [data-reveal] {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}

@@ -1,0 +1,21 @@
+---
+// Text from a multi-line field: a blank line starts a new paragraph.
+interface Props {
+	text: string | null | undefined;
+	class?: string;
+	reveal?: boolean;
+}
+const { text, class: className, reveal = true } = Astro.props;
+const paragraphs = (text ?? '')
+	.split(/\n\s*\n/)
+	.map((p) => p.trim())
+	.filter(Boolean);
+---
+
+{
+	paragraphs.map((p) => (
+		<p class={className} data-reveal={reveal ? '' : undefined}>
+			{p}
+		</p>
+	))
+}

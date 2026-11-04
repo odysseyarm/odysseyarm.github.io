@@ -1,0 +1,29 @@
+---
+// Puts the website's main menu in the docs header, before the GitHub icon.
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import { getSettings } from '../../lib/site';
+
+const settings = await getSettings();
+---
+
+<nav class="site-links" aria-label="Main">
+	{settings.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+</nav>
+<Default />
+
+<style>
+	.site-links {
+		display: flex;
+		gap: 1.25rem;
+		margin-inline-end: 0.5rem;
+	}
+	.site-links a {
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		font-weight: 600;
+		font-size: var(--sl-text-sm);
+	}
+	.site-links a:hover {
+		color: var(--sl-color-white);
+	}
+</style>

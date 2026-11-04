@@ -1,0 +1,41 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { formatDate, getPosts } from '../../lib/blog';
+
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { title, date, author, summary, cover, coverAlt } = post.data;
+const { Content } = await render(post);
+const ogImage = cover ? (await getImage({ src: cover, width: 1200 })).src : undefined;
+---
+
+<Base title={title} description={summary} image={ogImage}>
+	<article class="section">
+		<div class="container prose">
+			<a href="/blog/">← All news</a>
+			<h1>{title}</h1>
+			<p class="muted">
+				<time datetime={date.toISOString()}>{formatDate(date)}</time>
+				{author && <> · {author}</>}
+			</p>
+			{cover && <Image src={cover} alt={coverAlt ?? ''} widths={[800, 1400]} sizes="44rem" class="cover" />}
+			<Content />
+		</div>
+	</article>
+</Base>
+
+<style>
+	h1 {
+		font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+		margin: 1rem 0 0.25rem;
+	}
+	.prose :global(.cover) {
+		margin-block: 1.5rem;
+	}
+</style>

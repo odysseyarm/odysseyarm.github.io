@@ -1,0 +1,9 @@
+---
+// Shows the site-wide announcement above the docs, plus any banner a docs page
+// sets in its own front matter (Starlight's built-in behavior).
+import Default from '@astrojs/starlight/components/Banner.astro';
+import SiteBanner from '../Banner.astro';
+---
+
+<SiteBanner />
+<Default />

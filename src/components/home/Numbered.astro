@@ -1,0 +1,64 @@
+---
+import Heading from './Heading.astro';
+import Paragraphs from './Paragraphs.astro';
+import type { HighlightItem, TwoTone } from './types';
+
+interface Props {
+	heading: TwoTone;
+	intro: string;
+	columns: readonly { title: string; items: readonly HighlightItem[] }[];
+}
+const { heading, intro, columns } = Astro.props;
+---
+
+<section class="section">
+	<div class="container">
+		<Heading heading={heading} class="title" />
+		{intro && <div class="lead"><Paragraphs text={intro} /></div>}
+		<div class="columns">
+			{
+				columns.map((col, i) => (
+					<div class="column" data-reveal>
+						<span class="number">{String(i + 1).padStart(2, '0')}</span>
+						<h3>{col.title}</h3>
+						<ol>
+							{col.items.map((item) => (
+								<li class:list={{ accent: item.highlight }}>{item.text}</li>
+							))}
+						</ol>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.columns {
+		display: grid;
+		gap: 2.5rem 3rem;
+		margin-top: 3rem;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+	}
+	.number {
+		display: block;
+		padding-bottom: 0.6rem;
+		border-bottom: 2px solid var(--accent);
+		color: var(--text-muted);
+		font-variant-numeric: tabular-nums;
+	}
+	h3 {
+		font-size: 1.4rem;
+		margin: 1.25rem 0 1rem;
+	}
+	ol {
+		margin: 0;
+		padding-left: 1.4em;
+	}
+	li {
+		margin-bottom: 0.6em;
+	}
+	li::marker {
+		color: var(--text-muted);
+	}
+</style>

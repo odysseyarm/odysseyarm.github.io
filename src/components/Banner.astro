@@ -1,0 +1,48 @@
+---
+// Site-wide announcement, edited in Keystatic under "Announcement banner".
+import { getBanner, isExternal } from '../lib/site';
+
+const banner = await getBanner();
+const href = banner.link.href?.trim();
+---
+
+{
+	banner.enabled && banner.message && (
+		<div class:list={['site-banner', banner.tone]} data-pagefind-ignore>
+			<span>{banner.message}</span>
+			{href && (
+				<a href={href} {...(isExternal(href) ? { rel: 'noopener' } : {})}>
+					{banner.link.label || 'Learn more'} →
+				</a>
+			)}
+		</div>
+	)
+}
+
+<style>
+	.site-banner {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.25rem 0.75rem;
+		padding: 0.6rem 1rem;
+		text-align: center;
+		font-size: 0.875rem;
+		font-weight: 500;
+		line-height: 1.4;
+		background: var(--accent);
+		color: var(--on-accent);
+	}
+	.site-banner.neutral {
+		background: var(--neutral-bg);
+		color: var(--neutral-text);
+	}
+	.site-banner.warning {
+		background: var(--warning-bg);
+		color: var(--warning-text);
+	}
+	a {
+		color: inherit;
+		font-weight: 600;
+	}
+</style>

@@ -1,0 +1,7 @@
+@import '@fontsource-variable/inter';
+
+/* Adjustments to Starlight for the docs at /docs. */
+.site-title img {
+	height: 2rem;
+	width: auto;
+}

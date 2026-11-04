@@ -1,0 +1,9 @@
+# Cloudflare redirect rules (https://developers.cloudflare.com/workers/static-assets/redirects/)
+
+# Old URLs from the Jekyll site
+/developers                      /docs/sdk/                                301
+/developers/                     /docs/sdk/                                301
+/2023/12/29/shot-show.html       /blog/phase-ii-soldier-virtual-trainer/   301
+
+# The Keystatic editor is a single page that handles its own URLs.
+/keystatic/*                     /keystatic/                               200

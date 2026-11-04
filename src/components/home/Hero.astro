@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import Heading from './Heading.astro';
+import Paragraphs from './Paragraphs.astro';
+import { uploadedImage } from '../../lib/images';
+import { isExternal } from '../../lib/site';
+
+interface Props {
+	heading: { accent: string; text: string; newLine: boolean };
+	text: string;
+	primary: { label: string; href: string };
+	secondary: { label: string; href: string };
+	image: string | null;
+	imageAlt: string;
+}
+const { heading, text, primary, secondary, image, imageAlt } = Astro.props;
+const picture = uploadedImage(image);
+const external = (href: string) => (isExternal(href) ? { target: '_blank', rel: 'noopener' } : {});
+---
+
+<section class="section hero">
+	<div class:list={['container', 'grid', { 'no-image': !picture }]}>
+		<div class="copy">
+			<Heading heading={heading} as="h1" class="display" />
+			<div class="lead">
+				<Paragraphs text={text} />
+			</div>
+			{
+				(primary.href || secondary.href) && (
+					<div class="actions" data-reveal>
+						{primary.href && (
+							<a class="button" href={primary.href} {...external(primary.href)}>
+								{primary.label}
+							</a>
+						)}
+						{secondary.href && (
+							<a class="button secondary" href={secondary.href} {...external(secondary.href)}>
+								{secondary.label}
+							</a>
+						)}
+					</div>
+				)
+			}
+		</div>
+		{
+			picture && (
+				<div class="media" data-reveal>
+					<Image
+						src={picture}
+						alt={imageAlt}
+						widths={[480, 800, 1100]}
+						sizes="(min-width: 60rem) 34rem, 100vw"
+						loading="eager"
+						fetchpriority="high"
+					/>
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.hero {
+		padding-top: clamp(3rem, 8vw, 6rem);
+	}
+	.grid {
+		display: grid;
+		gap: clamp(2.5rem, 6vw, 4.5rem);
+		align-items: center;
+	}
+	@media (min-width: 60rem) {
+		.grid:not(.no-image) {
+			grid-template-columns: 1.4fr 1fr;
+		}
+	}
+	.copy :global(h1) {
+		margin-bottom: 0.45em;
+	}
+	.lead {
+		color: var(--text);
+	}
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+	.media :global(img) {
+		width: 100%;
+		border-radius: var(--radius-lg);
+		box-shadow: 0 30px 80px -30px rgb(0 0 0 / 0.7);
+	}
+</style>

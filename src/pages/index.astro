@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import CallToAction from '../components/home/CallToAction.astro';
+import Cards from '../components/home/Cards.astro';
+import Columns from '../components/home/Columns.astro';
+import Contact from '../components/home/Contact.astro';
+import Feature from '../components/home/Feature.astro';
+import Hero from '../components/home/Hero.astro';
+import IconCards from '../components/home/IconCards.astro';
+import LatestPosts from '../components/home/LatestPosts.astro';
+import List from '../components/home/List.astro';
+import Numbered from '../components/home/Numbered.astro';
+import Specs from '../components/home/Specs.astro';
+import Video from '../components/home/Video.astro';
+import { getHome } from '../lib/site';
+
+// Everything on this page is edited in Keystatic under "Front page". Each
+// section type there has a component in src/components/home/.
+const { hero, sections } = await getHome();
+---
+
+<Base>
+	<Hero {...hero} />
+	{
+		sections.map((section) => {
+			switch (section.discriminant) {
+				case 'columns':
+					return <Columns {...section.value} />;
+				case 'numbered':
+					return <Numbered {...section.value} />;
+				case 'list':
+					return <List {...section.value} />;
+				case 'cards':
+					return <Cards {...section.value} />;
+				case 'specs':
+					return <Specs {...section.value} />;
+				case 'iconCards':
+					return <IconCards {...section.value} />;
+				case 'contact':
+					return <Contact {...section.value} />;
+				case 'feature':
+					return <Feature {...section.value} />;
+				case 'video':
+					return <Video {...section.value} />;
+				case 'callToAction':
+					return <CallToAction {...section.value} />;
+				case 'latestPosts':
+					return <LatestPosts {...section.value} />;
+			}
+		})
+	}
+</Base>
