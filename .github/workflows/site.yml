@@ -59,6 +59,19 @@ jobs:
 
       - run: npm ci
 
+      - name: Label preview builds
+        if: env.IS_PRODUCTION != 'true'
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+        # Read by src/components/PreviewNotice.astro. The commit time is when
+        # the change was saved in Keystatic.
+        run: |
+          {
+            echo "PUBLIC_PREVIEW_BRANCH=$BRANCH"
+            echo "PUBLIC_PREVIEW_SAVED_AT=$(git log -1 --format=%cI)"
+            echo "PUBLIC_PREVIEW_COMMIT=$(git rev-parse --short HEAD)"
+          } >> "$GITHUB_ENV"
+
       - name: Build
         env:
           # Previews use the odyssey branch with the same name as this one when

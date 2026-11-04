@@ -1,0 +1,36 @@
+---
+// Starlight's sidebar under a title naming this set of docs ("Using Odyssey" or
+// "Developers"). starlight-sidebar-topics has already narrowed the sidebar to
+// the current set; replacing its own Sidebar override leaves out its list of
+// the other sets, so readers of one never see the other's pages.
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+
+const topic = Astro.locals.starlightSidebarTopics?.topics.find((t) => t.isCurrent);
+---
+
+{
+	topic && (
+		<a class="sidebar-topic" href={topic.link}>
+			{topic.label}
+		</a>
+	)
+}
+<Default><slot /></Default>
+
+<style>
+	.sidebar-topic {
+		display: block;
+		margin-bottom: 0.75rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+	.sidebar-topic:hover {
+		color: var(--sl-color-accent-high);
+	}
+</style>

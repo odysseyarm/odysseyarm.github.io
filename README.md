@@ -2,7 +2,8 @@
 
 The Odyssey website: the front page, news, downloads, product guides and the
 developer documentation. It is built with [Astro](https://astro.build), the docs
-under `/docs` use [Starlight](https://starlight.astro.build), and content is
+under `/docs` (for people using Odyssey) and `/developers` (for people building on
+it) use [Starlight](https://starlight.astro.build), and content is
 edited in [Keystatic](https://keystatic.com).
 
 ## Editing the site (no code needed)
@@ -17,7 +18,7 @@ Go to **https://odysseyarm.com/keystatic** and log in with Keystatic Cloud.
 | The text on the downloads page | **Downloads page**. The download buttons themselves update automatically when a new Odyssey Desktop release is published. |
 | The menu, contact details, footer | **Site settings** |
 | News | **Blog posts**. Tick *Draft* to save a post without publishing it. |
-| How-to guides for customers | **Product guides**. They appear under *Using Odyssey* in the docs. |
+| How-to guides for customers | **Product guides**. They appear on the help pages at `/docs`. |
 
 Pressing **Save** on the `main` branch publishes: the live site updates in
 about two minutes.
@@ -35,8 +36,7 @@ about two minutes.
 
 Preview shows what was last *saved*, not unsaved edits.
 
-The SDK and contributor docs (`/docs/sdk`, `/docs/contributing`) are not edited
-here; see below.
+The developer docs (`/developers`) are not edited here; see below.
 
 ## Where things live
 
@@ -45,8 +45,9 @@ here; see below.
 | `keystatic.config.ts` | Every field editors see in Keystatic |
 | `src/content/site/*.yaml` | Banner, front page, downloads page and site settings (written by Keystatic) |
 | `src/content/blog/` | News posts (written by Keystatic) |
-| `src/content/docs/docs/` | Pages under `/docs`. `guides/` is written by Keystatic; `index.mdx` is the docs home |
-| `src/content/docs/docs/{sdk,contributing}/` | **Generated.** Copied from [`odysseyarm/odyssey`](https://github.com/odysseyarm/odyssey/tree/master/docs) `docs/` by `scripts/sync-docs.mjs`; edit them there |
+| `src/content/docs/docs/` | Help pages under `/docs`. `guides/` is written by Keystatic; `index.mdx` is the help home |
+| `src/content/docs/developers/` | **Generated.** Developer docs, converted from [`odysseyarm/odyssey`](https://github.com/odysseyarm/odyssey/tree/master/docs/sdk) `docs/sdk/` by `scripts/sync-docs.mjs`; edit them there |
+| `src/components/starlight/` | Starlight overrides: site menu, banner, and one sidebar per set of docs |
 | `src/assets/uploads/`, `src/assets/blog/` | Pictures uploaded in Keystatic |
 | `src/pages/` | Front page, news, downloads, and the Keystatic editor page |
 | `src/components/home/` | One component per front page section type in Keystatic |

@@ -1,0 +1,52 @@
+---
+// Shown only on preview builds (see .github/workflows/site.yml), so whoever is
+// looking can tell which save they are seeing. Never on the live site.
+const branch = import.meta.env.PUBLIC_PREVIEW_BRANCH;
+const savedAt = import.meta.env.PUBLIC_PREVIEW_SAVED_AT; // ISO 8601, from the commit
+const commit = import.meta.env.PUBLIC_PREVIEW_COMMIT;
+const utc = savedAt ? new Date(savedAt).toISOString().slice(0, 16).replace('T', ' ') + ' UTC' : '';
+---
+
+{
+	branch && (
+		<div class="preview-notice" data-pagefind-ignore>
+			<strong>Preview of “{branch}”</strong>
+			{savedAt && (
+				<span>
+					showing the save from <time datetime={savedAt}>{utc}</time>
+					{commit && <span class="commit"> ({commit})</span>}
+				</span>
+			)}
+			<span class="hint">Not the live site. A newer save shows here about a minute after saving; refresh to check.</span>
+		</div>
+	)
+}
+
+<script>
+	// Show the save time in the viewer's own time zone.
+	document.querySelectorAll<HTMLTimeElement>('.preview-notice time').forEach((el) => {
+		const date = new Date(el.dateTime);
+		if (!Number.isNaN(date.valueOf())) {
+			el.textContent = date.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+		}
+	});
+</script>
+
+<style>
+	.preview-notice {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.15rem 0.75rem;
+		padding: 0.5rem 1rem;
+		background: #1d4ed8;
+		color: #ffffff;
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		text-align: center;
+	}
+	.commit,
+	.hint {
+		opacity: 0.8;
+	}
+</style>

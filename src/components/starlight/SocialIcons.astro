@@ -1,13 +1,25 @@
 ---
-// Puts the website's main menu in the docs header, before the GitHub icon.
+// Puts the website's main menu in the docs header, before the GitHub icon, and
+// marks the section being read ("Docs" or "Developers").
 import Default from '@astrojs/starlight/components/SocialIcons.astro';
 import { getSettings } from '../../lib/site';
 
 const settings = await getSettings();
+const path = Astro.url.pathname;
+const current = settings.nav
+	.map((item) => item.href)
+	.filter((href) => href.startsWith('/') && href !== '/' && path.startsWith(href.replace(/\/$/, '')))
+	.sort((a, b) => b.length - a.length)[0];
 ---
 
 <nav class="site-links" aria-label="Main">
-	{settings.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+	{
+		settings.nav.map((item) => (
+			<a href={item.href} aria-current={item.href === current ? 'page' : undefined}>
+				{item.label}
+			</a>
+		))
+	}
 </nav>
 <Default />
 
@@ -23,7 +35,14 @@ const settings = await getSettings();
 		font-weight: 600;
 		font-size: var(--sl-text-sm);
 	}
-	.site-links a:hover {
+	.site-links a:hover,
+	.site-links a[aria-current='page'] {
 		color: var(--sl-color-white);
+	}
+	.site-links a[aria-current='page'] {
+		text-decoration: underline;
+		text-decoration-color: var(--sl-color-accent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.45em;
 	}
 </style>
