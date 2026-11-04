@@ -51,7 +51,10 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version-file: .nvmrc
+          # The runner's preinstalled 22.x can lag behind the minimum Astro
+          # needs (package.json "engines"), so always fetch the latest 22.x.
+          check-latest: true
           cache: npm
 
       - run: npm ci

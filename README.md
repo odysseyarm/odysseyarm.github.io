@@ -65,7 +65,7 @@ to the component that uses it.
 
 ## Developing
 
-Requires Node 22.
+Requires Node 22.23.4 or newer (`.nvmrc`).
 
 ```sh
 npm install
