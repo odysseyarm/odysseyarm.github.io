@@ -163,11 +163,11 @@ sections:
       left:
         title: System Architecture
         text: >-
-          Odyssey Arm's enterprise-grade middleware runs on a Windows or Linux
-          PC and feeds the data from multiple OATS units into the training
-          environment.
-          The system works with multiple Bluetooth dongles, Wi-Fi, and wired
-          weapons.
+          Odyssey Desktop, our tracking software, runs on a Windows or Linux PC.
+          It connects to every OATS tracker, tracks each one, and streams the
+          data to the training software through the Odyssey client SDK.
+          Trackers connect with a USB cable, over Wi-Fi, or through one or more
+          Odyssey Bluetooth dongles.
         rows:
           - label: Aiming Accuracy
             value: ±0.5 MOA at the center of the screen, 1 MOA at the edges
@@ -185,7 +185,7 @@ sections:
             value: Projection screens, HDTVs, and computer monitors
             highlight: true
           - label: Connectivity
-            value: Bluetooth LE, Wi-Fi, and USB
+            value: USB, Wi-Fi, or Bluetooth LE through the Odyssey dongle
             highlight: false
           - label: OATS Trackers
             value: Depends on the computer (16 at once for SVT)
@@ -194,8 +194,9 @@ sections:
         title: Integration Capabilities
         text: >-
           OATS is designed to work with the engines simulators are built on. We
-          support VBS4 and Unity, and integrators can ask about other engines.
-          The middleware also keeps the trackers' firmware up to date.
+          support VBS4 and Unity, and the Odyssey client SDK (C#, C++, Python,
+          and Rust) connects other engines and your own software. Odyssey
+          Desktop also keeps the trackers' firmware up to date.
 
 
           General Dynamics' true-ballistics software already uses our solution,
