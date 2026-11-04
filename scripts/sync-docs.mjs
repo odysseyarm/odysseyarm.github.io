@@ -106,10 +106,12 @@ function rewriteTarget(target, fileRel) {
 
 // ------------------------------------------------------------- MDX output
 
+// [Starlight aside type, title, icon]. Starlight has no "important" type, so
+// IMPORTANT is a note with its own icon; docs.css colors it by its label.
 const ALERTS = {
 	NOTE: ['note', 'Note'],
 	TIP: ['tip', 'Tip'],
-	IMPORTANT: ['note', 'Important'],
+	IMPORTANT: ['note', 'Important', 'comment'],
 	WARNING: ['caution', 'Warning'],
 	CAUTION: ['danger', 'Caution'],
 };
@@ -192,9 +194,9 @@ class Page {
 				const inner = [];
 				i++;
 				while (i < lines.length && /^>/.test(lines[i])) inner.push(lines[i++].replace(/^>\s?/, ''));
-				const [type, title] = ALERTS[alert[1]];
+				const [type, title, icon] = ALERTS[alert[1]];
 				this.use('Aside');
-				out.push(`<Aside type="${type}" title="${title}">`, '', ...this.convert(inner), '', '</Aside>');
+				out.push(`<Aside type="${type}" title="${title}"${icon ? ` icon="${icon}"` : ''}>`, '', ...this.convert(inner), '', '</Aside>');
 				continue;
 			}
 
