@@ -170,10 +170,17 @@ sections:
           Odyssey Bluetooth dongles.
         rows:
           - label: Aiming Accuracy
-            value: ±0.5 MOA at the center of the screen, 1 MOA at the edges
+            value: >-
+              ±0.5 MOA at the center of the screen, 1 MOA at the edges, at 15 ft
+              (4.6 m)
+            highlight: false
+          - label: Pose Precision
+            value: ±3 mm at 15 ft (4.6 m) on a 65-inch HDTV
             highlight: false
           - label: Pose Accuracy
-            value: 1 cm at 10 ft (3 m)
+            value: >-
+              Within 1% of the shooting distance on an HDTV, 1.5% on a
+              projection screen
             highlight: false
           - label: Concurrent Screens
             value: Up to 6, with 2 side by side
