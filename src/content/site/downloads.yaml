@@ -1,11 +1,18 @@
 title: Downloads
 intro: >-
-  Odyssey Desktop connects to your devices, calibrates them against your screen
-  and keeps their firmware up to date.
+  Odyssey Desktop connects to your devices, calibrates your screen, and keeps
+  your devices' firmware up to date.
 notes:
   - title: Which Windows installer do I need?
     text: >-
-      Most computers should use the standard installer. Use the offline
-      installer on computers that must not reach the internet: it turns on
-      offline mode, so the app makes no internet connections, and it includes
-      the camera software that the standard installer downloads on demand.
+      Most computers should use the standard installer. The offline installer
+      is for computers that must never connect to the internet: it switches
+      Odyssey Desktop to offline mode for the whole computer, and can install
+      the camera software that the standard installer downloads when you need
+      it.
+  - title: Firmware updates in offline mode
+    text: >-
+      In offline mode, Odyssey Desktop doesn't download firmware updates. It
+      installs them from a firmware pack, a folder of firmware files that you
+      copy to %ProgramData%\OdysseyArm\Odyssey\firmware-pack on that computer.
+      Contact us to get one.

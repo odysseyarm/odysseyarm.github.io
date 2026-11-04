@@ -8,11 +8,11 @@ hero:
     transform how civilians, law enforcement, and military personnel train.
 
 
-    Our US Army-funded next generation Soldier Virtual Trainer technology
-    enables immersive training experiences that accelerate skill development and
-    enhance shooting accuracy across all proficiency levels.
+    Our US Army-funded, next-generation Soldier Virtual Trainer technology
+    enables immersive training that accelerates skill development and improves
+    shooting accuracy at every level of proficiency.
   primary:
-    label: Watch our Demo
+    label: Watch Our Demo
     href: https://youtu.be/zRKGqjDUpmE
   secondary: {}
   image: /src/assets/uploads/hero/image.jpg
@@ -28,56 +28,56 @@ sections:
       columns:
         - title: Civilian Shooters
           text: >-
-            Elevate your marksmanship by training on your home HDTV and PC.
-            Designed for competition/recreational shooters and gamers. Shoot
-            using:
+            Elevate your marksmanship by training on your own HDTV and PC.
+            Designed for competition and recreational shooters, and for gamers.
+            Shoot with:
           items:
-            - text: Real Gun retrofit with CoolFire
+            - text: Real guns retrofitted with CoolFire
               highlight: false
-            - text: Green Gas, CO2 or Electric Recoil Airsoft
+            - text: Green gas, CO₂, or electric-recoil airsoft guns
               highlight: false
-            - text: BLE magazines from Mantis and Dry Fire Mag
+            - text: Bluetooth magazines from Mantis and Dry Fire Mag
               highlight: false
           highlight: false
         - title: Law Enforcement
           text: >-
-            Equip each member of the department with a personal system running
-            on HDTV and PC for weapon skills development and maintenance.
-            Scenario based training on projection screens available from
-            partners to train for critical situations. Our technology tracks
-            weapons pose for comprehensive after-action review capabilities.
+            Equip each member of the department with a personal system that runs
+            on an HDTV and a PC, for building and maintaining weapon skills.
+            Scenario-based training on projection screens is available from
+            partners, to prepare for critical situations. Our technology tracks
+            each weapon's pose for comprehensive after-action review.
           items:
-            - text: Simultaneously train on multiple weapon types
+            - text: Train on multiple weapon types at once
               highlight: false
-            - text: Realistic night training capabilities
+            - text: Realistic night training
               highlight: false
           highlight: true
         - title: Military Operations
           text: >-
-            Developed for US Army SVT program to enable simultaneous training on
-            multiple weapon types including indirect fire weapons. Realistic
-            ballistics capabilities for each weapon type. Together with our
+            Developed for the US Army's Soldier Virtual Trainer (SVT) program, to
+            train on multiple weapon types at once, including indirect-fire
+            weapons, with realistic ballistics for each. Together with our
             partner Serious Simulations, the system provides complete weapon
-            information for all small arm weapon types.
+            information for all types of small arms.
           items:
-            - text: SDK for defense companies looking to build on OATS system
+            - text: An SDK for defense companies building on OATS
               highlight: false
-            - text: Complete weapon data including pose for AI training agents
+            - text: Complete weapon data, including pose, for AI training agents
               highlight: false
-            - text: Work in multi screen configurations
+            - text: Multi-screen configurations
               highlight: false
-            - text: Simultaneously support different weapons
+            - text: Different weapons at the same time
               highlight: false
-            - text: Weapon skill content available from Laser Shot
+            - text: Weapon-skills content available from Laser Shot
               highlight: false
           highlight: false
   - discriminant: list
     value:
       heading:
-        text: 'Every Solution provides high end features such as:'
+        text: 'Every solution includes high-end features such as:'
         newLine: false
       items:
-        - text: Aimtrace and pose for each weapon
+        - text: Aim trace and pose for each weapon
           highlight: false
         - text: Odyssey's proprietary XR capabilities (ParaLXR)
           highlight: true
@@ -90,7 +90,7 @@ sections:
       subheading:
         accent: You can now train in your OWN HOME with your OWN GUNS.
         text: >-
-          Play 'Call of Duty' on your own console with your own pistol and
+          Play “Call of Duty” on your own console with your own pistol and
           rifle!
         newLine: true
       cards:
@@ -102,158 +102,157 @@ sections:
             pull.
           highlight: true
         - image: /src/assets/uploads/sections/2/value/cards/1/image.jpg
-          imageAlt: Odyssey IR markers, cables and USB dongle
+          imageAlt: Odyssey IR markers, cables, and USB dongle
           title: Software (IR Marker System)
           text: >-
-            Constellation Tracking allows you to use computer monitors, HDTVs,
-            and projection screens.
+            Constellation Tracking lets you use computer monitors, HDTVs, and
+            projection screens.
           highlight: false
         - image: /src/assets/uploads/sections/2/value/cards/2/image.jpg
           imageAlt: >-
             A shooter next to a TV showing his score, with IR markers around the
             screen
           title: Civilian Training at Home
-          text: Civilian Training at Home with cutting edge military features.
+          text: Train at home with cutting-edge military features.
           highlight: true
   - discriminant: numbered
     value:
       heading:
-        accent: Next Generation Training
+        accent: Next-Generation Training
         text: Capabilities.
         newLine: false
       intro: >-
         The US Army selected the Odyssey Armament Training System (OATS) as the
-        foundational platform for the Soldier Virtual Trainer program due to its
-        many new innovative capabilities. OATS brings highest end simulator
-        features to the prosumer market while adding new unique capabilities.
+        foundational platform for the Soldier Virtual Trainer program because of
+        its many innovative capabilities. OATS brings the highest-end simulator
+        features to the prosumer market and adds unique capabilities of its own.
       columns:
-        - title: High End Features
+        - title: High-End Features
           items:
             - text: Aim trace for each weapon
               highlight: false
-            - text: Multi Screen capability
+            - text: Multi-screen capability
               highlight: false
             - text: Multiple concurrent weapons
               highlight: false
             - text: Realistic night training and illumination
               highlight: false
-            - text: Works with gas recoil, electric recoil, and BLE weapons
+            - text: Works with gas-recoil, electric-recoil, and Bluetooth weapons
               highlight: false
         - title: New Exclusive Capabilities
           items:
-            - text: Continuous weapons pose for each weapon
+            - text: Continuous pose tracking for each weapon
               highlight: false
-            - text: Aim above screen indirect fire capability
+            - text: Indirect fire, aimed above the screen
               highlight: false
             - text: Works with projection screens, HDTVs, and computer monitors
               highlight: false
             - text: >-
-                ParaLXR - turns your screen into a VR experience, no headsets
+                ParaLXR: turns your screen into a VR experience, with no headset
                 needed
               highlight: true
-            - text: True ballistics simulation from weapon muzzle
+            - text: True ballistics, simulated from the weapon's muzzle
               highlight: false
             - text: Realistic tracers
               highlight: false
   - discriminant: specs
     value:
       heading:
-        text: Technical Specifications and Product Documentation
+        text: Technical Specifications
         newLine: false
       left:
         title: System Architecture
         text: >-
-          The Odyssey Arm enterprise grade middleware runs on Windows 11 PCs
-          computing the data coming from multiple OATS units into the training
-          environment. The system works with multiple BLE dongles, WiFi, and
-          wired weapons.
+          Odyssey Arm's enterprise-grade middleware runs on a Windows or Linux
+          PC and feeds the data from multiple OATS units into the training
+          environment.
+          The system works with multiple Bluetooth dongles, Wi-Fi, and wired
+          weapons.
         rows:
           - label: Aiming Accuracy
-            value: ±0.5MOA at screen center, 1MOA at screen edge
+            value: ±0.5 MOA at the center of the screen, 1 MOA at the edges
             highlight: false
           - label: Pose Accuracy
-            value: 1cm at 10ft
+            value: 1 cm at 10 ft (3 m)
             highlight: false
-          - label: '# of Concurrent Screens'
-            value: Supports 6 concurrent screens with 2 screens side-by-side
+          - label: Concurrent Screens
+            value: Up to 6, with 2 side by side
             highlight: true
           - label: Display Resolution
-            value: System scales with display resolution
+            value: Any; the system scales with the display
             highlight: false
-          - label: Display Type
-            value: Projection screen, HDTV screens, Computer Monitors
+          - label: Display Types
+            value: Projection screens, HDTVs, and computer monitors
             highlight: true
           - label: Connectivity
-            value: BLE, WiFi, USB Direct
+            value: Bluetooth LE, Wi-Fi, and USB
             highlight: false
-          - label: '# of OATS Trackers'
-            value: Dependent on Computer (16 concurrent trackers for SVT)
+          - label: OATS Trackers
+            value: Depends on the computer (16 at once for SVT)
             highlight: false
       right:
         title: Integration Capabilities
         text: >-
-          OATS system has been designed to work with the simulation engines used
-          in simulators. We support VBS4, Unity (other engines integrators can
-          ask on demand), run on Win64 and Windows for ARM, and have an Auto
-          Update of Middleware (auto update of firmware in future release).
+          OATS is designed to work with the engines simulators are built on. We
+          support VBS4 and Unity, and integrators can ask about other engines.
+          The middleware also keeps the trackers' firmware up to date.
 
 
-          General Dynamics has true ballistic software that currently use our
-          solution, and Laser Shot content works with our system.
-        listTitle: 'Our Tech also works with:'
+          General Dynamics' true-ballistics software already uses our solution,
+          and Laser Shot content works with our system.
+        listTitle: 'Our technology also works with:'
         items:
-          - text: Green Gas and CO2 Airsoft Weapons
+          - text: Green gas and CO₂ airsoft guns
             highlight: false
-          - text: Electric Recoil Airsoft
+          - text: Electric-recoil airsoft guns
             highlight: false
-          - text: CoolFire Conversion Barrels for Real Weapons
+          - text: CoolFire conversion barrels for real weapons
             highlight: false
           - text: Dvorak
             highlight: false
-          - text: BLE Magazines from Dry Fire Mag and Mantis
+          - text: Bluetooth magazines from Dry Fire Mag and Mantis
             highlight: false
-        calloutTitle: 'BIG ANNOUNCEMENT:'
-        calloutText: Laser Ammo software works with OATS now!!
+        calloutTitle: 'Big announcement:'
+        calloutText: Laser Ammo software now works with OATS!
   - discriminant: iconCards
     value:
       heading:
         accent: Partnership Opportunities
-        text: for Training Organizations, Distributors and Partners.
+        text: for Training Organizations, Distributors, and Partners.
         newLine: false
       intro: >-
         Odyssey Arm seeks strategic partners who share our commitment to
         advancing marksmanship training through innovative technology. We offer
-        comprehensive support programs designed to ensure partner success in
+        comprehensive support programs designed to ensure partners succeed in
         bringing next-generation training solutions to their markets.
       cards:
         - icon: instructor
           title: Training Organizations
           paragraphs:
             - text: >-
-                Instructors at Texas Gun Club and Clear Creek Gun Range are
-                using the OATS system to train their classes. Students have
-                provided extremely positive feedback testifying the
-                effectiveness of the Odyssey System.
+                Instructors at Texas Gun Club and Clear Creek Gun Range use OATS
+                to train their classes, and students' feedback on its
+                effectiveness has been extremely positive.
               highlight: false
             - text: >-
-                New students found OATS greatly reduce anxiety when shooting for
-                the first time while experienced students used OATS to discover
-                weakness in their shooting.
+                New students found that OATS greatly reduced their anxiety about
+                shooting for the first time, while experienced students used it
+                to find weaknesses in their shooting.
               highlight: true
             - text: >-
-                OATS provide instructors with a new interactive method of
-                delivering engaging instruction and can provide additional
-                streams of income.
+                OATS gives instructors a new, interactive way to deliver
+                engaging instruction, and can provide additional streams of
+                income.
               highlight: false
         - icon: store
           title: Authorized Distributors
           paragraphs:
             - text: >-
-                Retailers can run a virtual gun range in your store, livening
-                the customer experience.
+                Retailers can run a virtual gun range in their store, livening
+                up the customer experience.
               highlight: false
             - text: >-
-                OATS opens up new sources to service, product, and recurring
+                OATS opens up new sources of service, product, and recurring
                 revenue.
               highlight: false
         - icon: handshake
@@ -264,10 +263,10 @@ sections:
                 companies by enabling civilians to train at home on their HDTVs.
               highlight: false
             - text: >-
-                Become a development partner to migrate existing content to plug
-                into this large untapped market. Development new content for
-                training and gaming that allows users to train on real and
-                Airsoft weapons.
+                Become a development partner to bring your existing content to
+                this large, untapped market, or to develop new training and
+                gaming content that lets users train with real and airsoft
+                weapons.
               highlight: false
   - discriminant: latestPosts
     value:
@@ -283,20 +282,21 @@ sections:
         Our team is ready to help you become a better shooter.
 
 
-        Whether you're becoming a distributor, upgrading your marksmanship, or
+        Whether you're becoming a distributor, improving your marksmanship, or
         exploring partnership opportunities, we'd love to speak with you.
       cards:
         - title: Schedule a Demo
           text: >-
             Experience Odyssey Arm technology firsthand at our demonstration
-            facility or request an on-site presentation.
+            facility, or request an on-site presentation.
           href: >-
             mailto:info@odysseyarm.com?subject=Demo%20request&body=Name%3A%0D%0AOrganization%3A%0D%0AI%20am%20%28civilian%20/%20law%20enforcement%20/%20military%20/%20other%29%3A%0D%0ALocation%3A%0D%0ADemo%20at%20your%20facility%20or%20on-site%3A%0D%0AAnything%20else%20we%20should%20know%3A%0D%0A
           highlight: true
         - title: Documentation
           text: >-
-            Guides for setting up Odyssey Desktop and your devices, and the
-            client SDK for building your own games and simulators on Odyssey.
+            Guides for setting up Odyssey Desktop and your devices, and
+            developer docs for building your own games and simulators on
+            Odyssey.
           href: /docs/
           highlight: false
       button:
