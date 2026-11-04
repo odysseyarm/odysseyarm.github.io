@@ -84,3 +84,23 @@
 	line-height: 1.5;
 	text-align: center;
 }
+
+/* GitHub alerts in the SDK docs (see scripts/sync-docs.mjs). Important uses
+   the brand orange; Warning moves to amber so the two don't look alike. */
+.starlight-aside[aria-label='Important'] {
+	--sl-color-asides-text-accent: var(--sl-color-accent-high);
+	--sl-color-asides-border: var(--sl-color-accent);
+	background-color: var(--sl-color-accent-low);
+}
+
+.starlight-aside--caution {
+	--sl-color-asides-text-accent: #f2cc60;
+	--sl-color-asides-border: #d29922;
+	background-color: #33290f;
+}
+
+:root[data-theme='light'] .starlight-aside--caution {
+	--sl-color-asides-text-accent: #7d4e00;
+	--sl-color-asides-border: #bf8700;
+	background-color: #fff5d6;
+}
