@@ -19,13 +19,21 @@ Go to **https://odysseyarm.com/keystatic** and log in with Keystatic Cloud.
 | News | **Blog posts**. Tick *Draft* to save a post without publishing it. |
 | How-to guides for customers | **Product guides**. They appear under *Using Odyssey* in the docs. |
 
-Pressing **Save** publishes: the live site rebuilds in about two minutes.
+Pressing **Save** on the `main` branch publishes: the live site updates in
+about two minutes.
 
-To have a change checked before it goes live, use the branch menu at the top
-left of Keystatic to create a new branch before editing. Your saves go to that
-branch; then open a pull request from it (Keystatic links to GitHub for this).
-The pull request gets a preview link, and the change goes live when it is
-merged.
+**To try a change before it goes live**, work on a branch:
+
+1. In the branch menu at the top left of Keystatic, create a new branch. Name it
+   with lowercase letters, numbers and dashes only, such as `spring-banner`.
+2. Edit and press **Save**. Saves go to your branch, not the live site.
+3. About two minutes after saving, press **Preview** (top right of the page you
+   are editing) to see the site as saved on your branch. Save again and refresh
+   the preview to see further changes.
+4. When it looks right, open a pull request from the branch (Keystatic links to
+   GitHub for this) and merge it. That publishes the change.
+
+Preview shows what was last *saved*, not unsaved edits.
 
 The SDK and contributor docs (`/docs/sdk`, `/docs/contributing`) are not edited
 here; see below.

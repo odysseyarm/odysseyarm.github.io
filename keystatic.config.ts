@@ -65,6 +65,14 @@ const markdownBody = (directory: string, publicPath: string) =>
 		options: { image: { directory, publicPath } },
 	});
 
+// "Preview" button on each page in the editor. Every branch is deployed to its
+// own address by .github/workflows/site.yml (main included), so this opens the
+// last *saved* version on the branch being edited, a minute or two after
+// saving. Keystatic inserts the branch name as typed: use lowercase letters,
+// digits and dashes in branch names so it matches the address.
+const preview = (path: string) =>
+	`https://{branch}-odysseyarm-site.odysseyarm.workers.dev${path}`;
+
 export default config({
 	// On the live site, editors sign in through Keystatic Cloud, which commits
 	// their changes to odysseyarm/odysseyarm.github.io. `npm run dev` edits the
@@ -83,6 +91,7 @@ export default config({
 		banner: singleton({
 			label: 'Announcement banner',
 			path: 'src/content/site/banner',
+			previewUrl: preview('/'),
 			format: 'yaml',
 			schema: {
 				enabled: fields.checkbox({ label: 'Show the banner', defaultValue: false }),
@@ -102,6 +111,7 @@ export default config({
 		settings: singleton({
 			label: 'Site settings',
 			path: 'src/content/site/settings',
+			previewUrl: preview('/'),
 			format: 'yaml',
 			schema: {
 				description: fields.text({
@@ -125,6 +135,7 @@ export default config({
 		home: singleton({
 			label: 'Front page',
 			path: 'src/content/site/home',
+			previewUrl: preview('/'),
 			format: 'yaml',
 			schema: {
 				hero: fields.object(
@@ -331,6 +342,7 @@ export default config({
 		downloads: singleton({
 			label: 'Downloads page',
 			path: 'src/content/site/downloads',
+			previewUrl: preview('/downloads/'),
 			format: 'yaml',
 			schema: {
 				title: fields.text({ label: 'Heading', defaultValue: 'Downloads' }),
@@ -352,6 +364,7 @@ export default config({
 		blog: collection({
 			label: 'Blog posts',
 			path: 'src/content/blog/*',
+			previewUrl: preview('/blog/{slug}/'),
 			slugField: 'title',
 			format: { contentField: 'content' },
 			entryLayout: 'content',
@@ -381,6 +394,7 @@ export default config({
 		guides: collection({
 			label: 'Product guides',
 			path: 'src/content/docs/docs/guides/*',
+			previewUrl: preview('/docs/guides/{slug}/'),
 			slugField: 'title',
 			format: { contentField: 'content' },
 			entryLayout: 'content',
