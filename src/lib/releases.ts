@@ -28,7 +28,7 @@ interface GitHubRelease {
 
 const DESKTOP_ASSETS: { match: RegExp; label: string; platform: Download['platform'] }[] = [
 	{ match: /-win-x64\.msi$/, label: 'Windows installer', platform: 'Windows' },
-	{ match: /-win-x64-offline\.msi$/, label: 'Windows offline installer', platform: 'Windows' },
+	{ match: /-win-x64-full\.msi$/, label: 'Windows full installer', platform: 'Windows' },
 	{ match: /\.AppImage$/, label: 'Linux AppImage', platform: 'Linux' },
 ];
 
