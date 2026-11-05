@@ -29,7 +29,12 @@ interface GitHubRelease {
 const DESKTOP_ASSETS: { match: RegExp; label: string; platform: Download['platform'] }[] = [
 	{ match: /-win-x64\.msi$/, label: 'Windows installer', platform: 'Windows' },
 	{ match: /-win-x64-full\.msi$/, label: 'Windows full installer', platform: 'Windows' },
+	// Releases before 0.7.0 named the full installer "offline".
+	{ match: /-win-x64-offline\.msi$/, label: 'Windows offline installer', platform: 'Windows' },
 	{ match: /\.AppImage$/, label: 'Linux AppImage', platform: 'Linux' },
+	// 0.5.x shipped Velopack packages instead of an MSI.
+	{ match: /-win-x64-stable-Setup\.exe$/, label: 'Windows installer', platform: 'Windows' },
+	{ match: /-win-x64-stable-Portable\.zip$/, label: 'Windows portable', platform: 'Windows' },
 ];
 
 async function fetchReleases(): Promise<GitHubRelease[]> {
@@ -37,32 +42,36 @@ async function fetchReleases(): Promise<GitHubRelease[]> {
 	// CI passes a token so builds are not rate-limited; local builds work without one.
 	const token = process.env.GITHUB_TOKEN;
 	if (token) headers.Authorization = `Bearer ${token}`;
-	const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`, { headers });
-	if (!res.ok) throw new Error(`GitHub releases request failed: ${res.status} ${res.statusText}`);
-	return res.json();
+	// Firmware and SDK releases share the repo, so older Desktop releases sit past the first page.
+	const releases: GitHubRelease[] = [];
+	for (let page = 1; ; page++) {
+		const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100&page=${page}`, { headers });
+		if (!res.ok) throw new Error(`GitHub releases request failed: ${res.status} ${res.statusText}`);
+		const batch: GitHubRelease[] = await res.json();
+		releases.push(...batch);
+		if (batch.length < 100) return releases;
+	}
 }
 
 let cache: Promise<GitHubRelease[]> | undefined;
 
-/** Latest published Odyssey Desktop release (tags `odyssey-desktop-v*`). */
-export async function latestDesktopRelease(): Promise<Release | undefined> {
+/** Published Odyssey Desktop releases (tags `odyssey-desktop-v*`), newest first. */
+export async function desktopReleases(): Promise<Release[]> {
 	cache ??= fetchReleases();
-	const release = (await cache).find(
-		(r) => !r.draft && !r.prerelease && r.tag_name.startsWith('odyssey-desktop-v'),
-	);
-	if (!release) return undefined;
-	const downloads = DESKTOP_ASSETS.flatMap(({ match, label, platform }) => {
-		const asset = release.assets.find((a) => match.test(a.name));
-		return asset
-			? [{ label, platform, file: asset.name, url: asset.browser_download_url, size: asset.size }]
-			: [];
-	});
-	return {
-		version: release.tag_name.replace('odyssey-desktop-v', ''),
-		date: new Date(release.published_at),
-		url: release.html_url,
-		downloads,
-	};
+	return (await cache)
+		.filter((r) => !r.draft && !r.prerelease && r.tag_name.startsWith('odyssey-desktop-v'))
+		.sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at))
+		.map((release) => ({
+			version: release.tag_name.replace('odyssey-desktop-v', ''),
+			date: new Date(release.published_at),
+			url: release.html_url,
+			downloads: DESKTOP_ASSETS.flatMap(({ match, label, platform }) => {
+				const asset = release.assets.find((a) => match.test(a.name));
+				return asset
+					? [{ label, platform, file: asset.name, url: asset.browser_download_url, size: asset.size }]
+					: [];
+			}),
+		}));
 }
 
 export const formatSize = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(0)} MB`;

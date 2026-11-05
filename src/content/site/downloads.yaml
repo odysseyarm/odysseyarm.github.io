@@ -7,14 +7,12 @@ notes:
     text: >-
       Most computers should use the standard installer. The full installer
       includes the camera software, so it installs without an internet
-      connection. Neither installer turns on offline mode by itself. To turn
-      it on for the whole computer, install from the command line with
-      msiexec /i Odyssey-<version>-win-x64-full.msi OFFLINE_MODE=1 (the
-      standard installer accepts OFFLINE_MODE=1 too).
+      connection. Choosing an installer does not turn on offline mode; see
+      "Offline mode at a glance" below for how to turn it on on each system.
   - title: Firmware updates in offline mode
     text: >-
       In offline mode, Odyssey Desktop doesn't download firmware updates. It
       installs them from a firmware pack, a folder of firmware files that you
-      copy to %ProgramData%\OdysseyArm\Odyssey\firmware-pack on that computer.
-      Installing with OFFLINE_MODE=1 creates this folder. Contact us to get a
-      firmware pack.
+      copy into the firmware pack folder for your system, listed below. On
+      Windows, installing with OFFLINE_MODE=1 creates that folder. Contact us
+      to get a firmware pack.

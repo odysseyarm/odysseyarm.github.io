@@ -1,13 +1,29 @@
 ---
 import Base from '../layouts/Base.astro';
 import { formatDate } from '../lib/blog';
-import { formatSize, latestDesktopRelease } from '../lib/releases';
+import { desktopReleases, formatSize, type Download } from '../lib/releases';
 import { getDownloadsPage } from '../lib/site';
 
 // The text is edited in Keystatic under "Downloads page". The files come from
-// the latest Odyssey Desktop release on GitHub when the site is built.
+// Odyssey Desktop releases on GitHub when the site is built.
 const page = await getDownloadsPage();
-const release = await latestDesktopRelease();
+const [release, ...past] = await desktopReleases();
+
+// Fixed by the app (crates/odyssey-desktop/OFFLINE.md in odysseyarm/odyssey), so not editable copy.
+const offline: { os: Download['platform']; turnOn: string; policy: string; pack: string }[] = [
+	{
+		os: 'Windows',
+		turnOn: 'msiexec /i Odyssey-<version>-win-x64-full.msi OFFLINE_MODE=1',
+		policy: '%ProgramData%\\OdysseyArm\\Odyssey\\policy.json',
+		pack: '%ProgramData%\\OdysseyArm\\Odyssey\\firmware-pack',
+	},
+	{
+		os: 'Linux',
+		turnOn: '{ "offline": true } in the policy file',
+		policy: '/etc/odyssey/policy.json',
+		pack: '/var/lib/odyssey/firmware-pack',
+	},
+];
 ---
 
 <Base title={page.title} description={page.intro}>
@@ -56,6 +72,60 @@ const release = await latestDesktopRelease();
 			}
 
 			<div class="note">
+				<h2>Offline mode at a glance</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>System</th>
+							<th>Turn offline mode on</th>
+							<th>Policy file</th>
+							<th>Firmware pack folder</th>
+						</tr>
+					</thead>
+					<tbody>
+						{offline.map((o) => (
+							<tr>
+								<td>{o.os}</td>
+								<td><code>{o.turnOn}</code></td>
+								<td><code>{o.policy}</code></td>
+								<td><code>{o.pack}</code></td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+				<p class="muted">
+					On any system, <code>ODYSSEY_OFFLINE=1</code> also turns offline mode on, and{' '}
+					<code>ODYSSEY_FIRMWARE_PACK_DIR</code> or <code>firmware_pack_dir</code> in the policy file
+					points at a different folder. Changes apply the next time Odyssey starts.
+				</p>
+			</div>
+
+			{
+				past.length > 0 && (
+					<div class="note">
+						<h2>Previous versions</h2>
+						<ul class="past">
+							{past.map((r) => (
+								<li>
+									<strong>{r.version}</strong>{' '}
+									<span class="muted">
+										{formatDate(r.date)} · <a href={r.url}>Release notes</a>
+									</span>
+									<br />
+									{r.downloads.map((d, i) => (
+										<>
+											{i > 0 && ' · '}
+											<a href={d.url}>{d.label}</a>
+										</>
+									))}
+								</li>
+							))}
+						</ul>
+					</div>
+				)
+			}
+
+			<div class="note">
 				<h2>Building software for Odyssey?</h2>
 				<p>
 					The client SDK and how to install it in each language are covered in the{' '}
@@ -100,5 +170,26 @@ const release = await latestDesktopRelease();
 	.note h2 {
 		font-size: 1.25rem;
 		margin-bottom: 0.25rem;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0.75rem 0;
+	}
+	th,
+	td {
+		text-align: left;
+		vertical-align: top;
+		padding: 0.5rem;
+		border-bottom: 1px solid var(--border);
+	}
+	td code {
+		overflow-wrap: anywhere;
+	}
+	.past {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		gap: 0.75rem;
 	}
 </style>
