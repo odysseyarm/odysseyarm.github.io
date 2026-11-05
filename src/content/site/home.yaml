@@ -54,8 +54,8 @@ sections:
           highlight: true
         - title: Military Operations
           text: >-
-            Developed for the US Army's Soldier Virtual Trainer (SVT) program, to
-            train on multiple weapon types at once, including indirect-fire
+            Developed for the US Army's Soldier Virtual Trainer (SVT) program,
+            to train on multiple weapon types at once, including indirect-fire
             weapons, with realistic ballistics for each. Together with our
             partner Serious Simulations, the system provides complete weapon
             information for all types of small arms.
@@ -165,9 +165,9 @@ sections:
         text: >-
           Odyssey Desktop, our tracking software, runs on a Windows or Linux PC.
           It connects to every OATS tracker, tracks each one, and streams the
-          data to the training software through the Odyssey client SDK.
-          Trackers connect with a USB cable, over Wi-Fi, or through one or more
-          Odyssey Bluetooth dongles.
+          data to the training software through the Odyssey client SDK. Trackers
+          connect with a USB cable, over Wi-Fi, or through one or more Odyssey
+          Bluetooth dongles.
         rows:
           - label: Aiming Accuracy
             value: >-
@@ -185,9 +185,6 @@ sections:
           - label: Concurrent Screens
             value: Up to 6, with 2 side by side
             highlight: true
-          - label: Display Resolution
-            value: Any; the system scales with the display
-            highlight: false
           - label: Display Types
             value: Projection screens, HDTVs, and computer monitors
             highlight: true
