@@ -29,8 +29,6 @@ interface GitHubRelease {
 const DESKTOP_ASSETS: { match: RegExp; label: string; platform: Download['platform'] }[] = [
 	{ match: /-win-x64\.msi$/, label: 'Windows installer', platform: 'Windows' },
 	{ match: /-win-x64-full\.msi$/, label: 'Windows full installer', platform: 'Windows' },
-	// Releases before 0.7.0 named the full installer "offline".
-	{ match: /-win-x64-offline\.msi$/, label: 'Windows offline installer', platform: 'Windows' },
 	{ match: /\.AppImage$/, label: 'Linux AppImage', platform: 'Linux' },
 	// 0.5.x shipped Velopack packages instead of an MSI.
 	{ match: /-win-x64-stable-Setup\.exe$/, label: 'Windows installer', platform: 'Windows' },
