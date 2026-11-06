@@ -1,5 +1,6 @@
 /* Brand colors shared by the marketing pages and the docs (Starlight).
-   Taken from the Odyssey Arm brand: charcoal background, orange accent. */
+   Copied from odyssey's docs/design/tokens.css, the source of truth, which
+   docs/design/README.md explains. Change a value there first, then here. */
 :root {
 	--accent: #ffa44f;
 	--accent-strong: #ffb36b;
