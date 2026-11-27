@@ -95,7 +95,33 @@ disk directly, without logging in.
 | `npm run check` | Type-check |
 | `npm run preview` | Build, then serve `dist/` the way Cloudflare does (redirects included) |
 
-## Hosting
+Rust API docs are hosted from public `odyssey-protocol` and `odyssey-hub-client`
+crates only. `npm run sync-api-docs` imports archives into `public/api/`:
+trusted master workflow artifact `rustdoc-master` contains one
+`rustdoc-master.tar.gz` file, whose tar members live under `api/master/`.
+Stable `odyssey-desktop-vX.Y.Z` release assets named `rustdoc-X.Y.Z.tar.gz`
+contain `api/X.Y.Z/`. Import validates archive paths/types and fails on missing
+master docs, malformed advertised release assets, or missing docs on newest
+stable release. Historical releases without archives are skipped (they predate
+hosted API docs); bootstrap by adding `rustdoc-X.Y.Z.tar.gz` to newest stable
+release before running importer. `/api/master/` serves current master API,
+`/api/X.Y.Z/` serves release API, and `/api/latest/` redirects to newest
+documented stable Desktop release.
+
+Regular local builds leave Rust API docs untouched (no fake fallback). For
+local publishing, run `SYNC_API_DOCS=1 npm run sync-api-docs` before
+`npm run build`. Downloading Actions artifacts requires GitHub authentication.
+For local use, set `GITHUB_TOKEN` with Actions read access to `odysseyarm/odyssey`.
+Set the website's `ODYSSEY_API_DOCS_TOKEN` secret for cross-repository artifact
+access if its built-in token is insufficient. Production syncs automatically;
+previews do not fetch API archives. Run `node --test scripts/sync-api-docs.test.mjs`
+to check archive validation and version selection without network access.
+
+Merge the Odyssey publishing workflow before enabling the website importer.
+Its first master push creates the master archive; a weekly build refreshes it
+within the 30-day artifact retention period. Bootstrap the latest stable release
+with the Rust API docs workflow's `version` and `tag` inputs. This attaches docs
+to that existing release without rebuilding or publishing application binaries.
 
 The site is static files served by Cloudflare (`wrangler.jsonc`).
 `.github/workflows/site.yml` builds every push and pull request and:

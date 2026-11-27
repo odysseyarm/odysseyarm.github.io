@@ -4,6 +4,7 @@ dist/
 .wrangler/
 .env
 .dev.vars
+public/api/
 
 # Copied in from odysseyarm/odyssey by scripts/sync-docs.mjs. Edit them there.
 src/content/docs/developers/

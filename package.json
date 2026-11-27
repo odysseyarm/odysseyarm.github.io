@@ -4,6 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"sync-docs": "node scripts/sync-docs.mjs",
+		"sync-api-docs": "node scripts/sync-api-docs.mjs",
 		"dev": "node scripts/sync-docs.mjs && astro dev",
 		"build": "node scripts/sync-docs.mjs && astro build",
 		"preview": "npm run build && wrangler dev",
