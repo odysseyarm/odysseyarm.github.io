@@ -71,7 +71,14 @@ jobs:
             echo "PUBLIC_PREVIEW_SAVED_AT=$(git log -1 --format=%cI)"
             echo "PUBLIC_PREVIEW_COMMIT=$(git rev-parse --short HEAD)"
           } >> "$GITHUB_ENV"
-
+      - name: Sync Rust API docs
+        if: env.IS_PRODUCTION == 'true'
+        env:
+          SYNC_API_DOCS: '1'
+          GITHUB_TOKEN: ${{ secrets.ODYSSEY_API_DOCS_TOKEN || secrets.GITHUB_TOKEN }}
+        run: npm run sync-api-docs
+      - name: Test Rust API import
+        run: node --test scripts/sync-api-docs.test.mjs
       - name: Build
         env:
           # Previews use the odyssey branch with the same name as this one when

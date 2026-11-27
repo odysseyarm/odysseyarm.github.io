@@ -1,11 +1,12 @@
 ---
 // Starlight's sidebar under a title naming this set of docs ("Using Odyssey" or
-// "Developers"). starlight-sidebar-topics has already narrowed the sidebar to
-// the current set; replacing its own Sidebar override leaves out its list of
-// the other sets, so readers of one never see the other's pages.
+// "Developers"). Keep API links outside generated content so sync-docs cannot
+// overwrite this discovery path.
 import Default from '@astrojs/starlight/components/Sidebar.astro';
 
 const topic = Astro.locals.starlightSidebarTopics?.topics.find((t) => t.isCurrent);
+const isDeveloper = topic?.link === '/developers/';
+
 ---
 
 {
@@ -15,6 +16,12 @@ const topic = Astro.locals.starlightSidebarTopics?.topics.find((t) => t.isCurren
 		</a>
 	)
 }
+{isDeveloper && (
+	<nav class="api-links" aria-label="Rust API references">
+		<a href="/api/latest/">Rust API (latest release)</a>
+		<a href="/api/master/">Rust API (master)</a>
+	</nav>
+)}
 <Default><slot /></Default>
 
 <style>
@@ -29,6 +36,14 @@ const topic = Astro.locals.starlightSidebarTopics?.topics.find((t) => t.isCurren
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 		text-decoration: none;
+	}
+	.api-links {
+		display: grid;
+		gap: 0.5rem;
+		margin-block: 0.75rem;
+	}
+	.api-links a {
+		font-size: var(--sl-text-sm);
 	}
 	.sidebar-topic:hover {
 		color: var(--sl-color-accent-high);
