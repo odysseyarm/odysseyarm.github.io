@@ -4,9 +4,9 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
-import { latestVersion, syncApiDocs, validateArchive } from './sync-api-docs.mjs';
+import { syncApiDocs, validateArchive } from './sync-api-docs.mjs';
 
-test('imports trusted master ZIP and durable releases with numeric latest links', async () => {
+test('imports trusted archives without replacing website landing pages', async () => {
 	const temp = await fs.mkdtemp(path.join(os.tmpdir(), 'api-docs-test-'));
 	const originalFetch = globalThis.fetch;
 	try {
@@ -50,8 +50,7 @@ test('imports trusted master ZIP and durable releases with numeric latest links'
 			await assert.rejects(fs.access(path.join(output, version, 'index.html')), { code: 'ENOENT' });
 			assert.equal(await fs.readFile(path.join(output, version, 'odyssey_protocol/index.html'), 'utf8'), `<h1>Protocol ${version}</h1>`);
 		}
-		assert.match(await fs.readFile(path.join(output, 'latest/index.html'), 'utf8'), /\/api\/0\.10\.0\//);
-		assert.equal(latestVersion(['0.9.0', '0.10.0']), '0.10.0');
+		await assert.rejects(fs.access(path.join(output, 'latest/index.html')), { code: 'ENOENT' });
 		const missing = path.join(temp, 'missing.tar.gz');
 		execFileSync('tar', ['-czf', missing, '-C', temp, 'api/0.9.0']);
 		assert.throws(() => validateArchive(missing, 'master'), /Unsafe or malformed/);

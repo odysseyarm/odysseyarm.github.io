@@ -10,22 +10,24 @@ export async function getStaticPaths() {
 	const versions = entries.filter((entry) => entry.isDirectory() && /^\d+\.\d+\.\d+$/.test(entry.name))
 		.map((entry) => entry.name).sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
 	if (!versions.length) return [];
-	return [undefined, 'master', ...versions].map((version) => ({
+	return [undefined, 'latest', 'master', ...versions].map((version) => ({
 		params: { version }, props: { versions },
 	}));
 }
 
 interface Props { versions: string[] }
 const { versions } = Astro.props;
-const { version } = Astro.params;
+const { version: channel } = Astro.params;
+const latest = channel === 'latest';
+const version = latest ? versions[0] : channel;
 const overview = !version;
 const development = version === 'master';
-const label = overview ? 'Reference documentation' : development ? 'Master · Unreleased' : `Odyssey Desktop ${version}`;
+const label = overview ? 'Reference documentation' : development ? 'Master · Unreleased' : `${latest ? 'Latest stable · ' : ''}Odyssey Desktop ${version}`;
 const description = overview
 	? 'Rust reference for Odyssey’s wire protocols and local Hub client. Choose a release for published APIs, or master for current development.'
 	: development
 		? 'Built from master. Includes unreleased APIs and may differ from your installed Odyssey Desktop release.'
-		: `API snapshot published with Odyssey Desktop ${version}. Use this version when integrating with that release.`;
+		: `API snapshot published with Odyssey Desktop ${version}. ${latest ? 'Latest follows new stable releases; choose a numbered snapshot for a fixed reference.' : 'Use this version when integrating with that release.'}`;
 const crates = [
 	{ name: 'odyssey-protocol', path: 'odyssey_protocol', description: 'Device reports, wire encoding, and device, dongle and accessory protocol schemas.' },
 	{ name: 'odyssey-hub-client', path: 'odyssey_hub_client', description: 'Connect to the local Odyssey Hub, access devices and read tracking history.' },
@@ -65,10 +67,10 @@ const crates = [
 			<nav aria-label="API documentation versions">
 				<h2>Versions</h2>
 				<ul class="dots">
-					<li><a href="/api/latest/">Latest stable release ({versions[0]})</a> — follows new releases</li>
+					<li><a href="/api/latest/" aria-current={latest ? 'page' : undefined}>Latest stable release ({versions[0]})</a> — follows new releases</li>
 					<li><a href="/api/master/" aria-current={development ? 'page' : undefined}>Master</a> — unreleased development</li>
 					{versions.map((release) => (
-						<li><a href={`/api/${release}/`} aria-current={version === release ? 'page' : undefined}>Desktop {release}</a> — fixed release snapshot</li>
+						<li><a href={`/api/${release}/`} aria-current={channel === release ? 'page' : undefined}>Desktop {release}</a> — fixed release snapshot</li>
 					))}
 				</ul>
 			</nav>

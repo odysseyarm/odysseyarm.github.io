@@ -41,9 +41,6 @@ function extract(archive, destination, version) {
 	execFileSync('tar', ['-xzf', archive, '-C', destination, '--no-same-owner', '--no-same-permissions']);
 }
 
-export function latestVersion(versions) {
-	return [...versions].sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).at(-1);
-}
 
 async function fetchAsset(asset, version, destination) {
 	const temp = await fs.mkdtemp(path.join(os.tmpdir(), 'odyssey-rustdoc-'));
@@ -111,14 +108,10 @@ try {
 	for (const release of documented) await downloadRelease(release.tag_name.slice('odyssey-desktop-v'.length), destination);
 	const versions = (await fs.readdir(path.join(destination, 'api'))).filter((entry) => entry !== 'master' && /^\d+\.\d+\.\d+$/.test(entry));
 	if (!versions.length) throw new Error('No stable release Rust API docs found; refusing incomplete publish');
-	const latest = latestVersion(versions);
 	// Website owns landing pages; keep generated crate pages and assets unchanged.
 	for (const version of ['master', ...versions]) {
 		await fs.unlink(path.join(destination, `api/${version}/index.html`));
 	}
-	await fs.mkdir(path.join(destination, 'api/latest'), { recursive: true });
-	await fs.writeFile(path.join(destination, 'api/latest/index.html'),
-		`<!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/api/${latest}/"><title>Latest Rust API</title><a href="/api/${latest}/">Latest released Rust API</a></html>\n`);
 	await fs.rm(output, { recursive: true, force: true });
 	await fs.cp(path.join(destination, 'api'), output, { recursive: true });
 	console.log(`sync-api-docs: published master and ${versions.length} stable releases; older releases without assets omitted`);

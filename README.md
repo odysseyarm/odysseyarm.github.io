@@ -105,8 +105,8 @@ master docs, malformed advertised release assets, or missing docs on newest
 stable release. Historical releases without archives are skipped (they predate
 hosted API docs); bootstrap by adding `rustdoc-X.Y.Z.tar.gz` to newest stable
 release before running importer. `/api/master/` serves current master API,
-`/api/X.Y.Z/` serves release API, and `/api/latest/` redirects to newest
-documented stable Desktop release.
+`/api/X.Y.Z/` serves release API, and `/api/latest/` shows the newest
+documented stable Desktop release with links into its numbered crate docs.
 `/api/` lists the documentation channels. `latest` excludes drafts and
 prereleases; `master` is unreleased development documentation, not a separate
 nightly release channel. Astro renders the overview and version landing pages
