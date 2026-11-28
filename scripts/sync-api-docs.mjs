@@ -112,6 +112,10 @@ try {
 	const versions = (await fs.readdir(path.join(destination, 'api'))).filter((entry) => entry !== 'master' && /^\d+\.\d+\.\d+$/.test(entry));
 	if (!versions.length) throw new Error('No stable release Rust API docs found; refusing incomplete publish');
 	const latest = latestVersion(versions);
+	// Website owns landing pages; keep generated crate pages and assets unchanged.
+	for (const version of ['master', ...versions]) {
+		await fs.unlink(path.join(destination, `api/${version}/index.html`));
+	}
 	await fs.mkdir(path.join(destination, 'api/latest'), { recursive: true });
 	await fs.writeFile(path.join(destination, 'api/latest/index.html'),
 		`<!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/api/${latest}/"><title>Latest Rust API</title><a href="/api/${latest}/">Latest released Rust API</a></html>\n`);

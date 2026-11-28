@@ -1,0 +1,100 @@
+---
+import fs from 'node:fs/promises';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+	const entries = await fs.readdir('public/api', { withFileTypes: true }).catch((error: NodeJS.ErrnoException) => {
+		if (error.code === 'ENOENT') return [];
+		throw error;
+	});
+	const versions = entries.filter((entry) => entry.isDirectory() && /^\d+\.\d+\.\d+$/.test(entry.name))
+		.map((entry) => entry.name).sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
+	if (!versions.length) return [];
+	return [undefined, 'master', ...versions].map((version) => ({
+		params: { version }, props: { versions },
+	}));
+}
+
+interface Props { versions: string[] }
+const { versions } = Astro.props;
+const { version } = Astro.params;
+const overview = !version;
+const development = version === 'master';
+const label = overview ? 'Reference documentation' : development ? 'Master · Unreleased' : `Odyssey Desktop ${version}`;
+const description = overview
+	? 'Rust reference for Odyssey’s wire protocols and local Hub client. Choose a release for published APIs, or master for current development.'
+	: development
+		? 'Built from master. Includes unreleased APIs and may differ from your installed Odyssey Desktop release.'
+		: `API snapshot published with Odyssey Desktop ${version}. Use this version when integrating with that release.`;
+const crates = [
+	{ name: 'odyssey-protocol', path: 'odyssey_protocol', description: 'Device reports, wire encoding, and device, dongle and accessory protocol schemas.' },
+	{ name: 'odyssey-hub-client', path: 'odyssey_hub_client', description: 'Connect to the local Odyssey Hub, access devices and read tracking history.' },
+];
+---
+
+<Base title={overview ? 'Rust API' : `Rust API — ${version}`} description={description}>
+	<section class="section">
+		<div class="container">
+			<p class="muted">{label}</p>
+			<h1 class="title">Rust API</h1>
+			<p class="lead">{description}</p>
+			{overview ? (
+				<div class="cards">
+					<article>
+						<h2><a href="/api/latest/">Latest release · {versions[0]}</a></h2>
+						<p>Newest stable Desktop release. Excludes drafts and prereleases. This link follows future stable releases.</p>
+					</article>
+					<article>
+						<h2><a href="/api/master/">Master · Unreleased</a></h2>
+						<p>Current development APIs. Choose this when building against master, not a released Desktop version.</p>
+					</article>
+				</div>
+			) : (
+				<>
+					<h2>Crates</h2>
+					<div class="cards">
+						{crates.map((crate) => (
+							<article>
+								<h3><a href={`/api/${version}/${crate.path}/index.html`}>{crate.name}</a></h3>
+								<p>{crate.description}</p>
+							</article>
+						))}
+					</div>
+				</>
+			)}
+			<nav aria-label="API documentation versions">
+				<h2>Versions</h2>
+				<ul class="dots">
+					<li><a href="/api/latest/">Latest stable release ({versions[0]})</a> — follows new releases</li>
+					<li><a href="/api/master/" aria-current={development ? 'page' : undefined}>Master</a> — unreleased development</li>
+					{versions.map((release) => (
+						<li><a href={`/api/${release}/`} aria-current={version === release ? 'page' : undefined}>Desktop {release}</a> — fixed release snapshot</li>
+					))}
+				</ul>
+			</nav>
+			<p class="muted">These versions identify Desktop release snapshots, not device wire-protocol versions. Check each API’s compatibility requirements.</p>
+			<p><a href="/developers/">Developer guides</a>{!overview && <> · <a href="/api/">API overview</a></>}</p>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+		gap: 1.5rem;
+		margin-block: 1.5rem 3rem;
+	}
+	article {
+		padding: 1.5rem;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--bg-raised);
+	}
+	article h2, article h3 {
+		font-size: 1.25rem;
+		overflow-wrap: anywhere;
+		margin-bottom: 0.75rem;
+	}
+	nav { margin-bottom: 2rem; }
+</style>
