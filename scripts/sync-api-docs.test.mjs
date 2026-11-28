@@ -4,9 +4,9 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
-import { latestVersion, syncApiDocs, validateArchive } from './sync-api-docs.mjs';
+import { syncApiDocs, validateArchive } from './sync-api-docs.mjs';
 
-test('imports trusted master ZIP and durable releases with numeric latest links', async () => {
+test('imports trusted archives without replacing website landing pages', async () => {
 	const temp = await fs.mkdtemp(path.join(os.tmpdir(), 'api-docs-test-'));
 	const originalFetch = globalThis.fetch;
 	try {
@@ -15,6 +15,8 @@ test('imports trusted master ZIP and durable releases with numeric latest links'
 			const dir = path.join(temp, 'api', version);
 			await fs.mkdir(dir, { recursive: true });
 			await fs.writeFile(path.join(dir, 'index.html'), `<h1>${version}</h1>`);
+			await fs.mkdir(path.join(dir, 'odyssey_protocol'));
+			await fs.writeFile(path.join(dir, 'odyssey_protocol/index.html'), `<h1>Protocol ${version}</h1>`);
 			const archive = path.join(temp, `rustdoc-${version}.tar.gz`);
 			execFileSync('tar', ['-czf', archive, '-C', temp, `api/${version}`]);
 			validateArchive(archive, version);
@@ -25,6 +27,10 @@ test('imports trusted master ZIP and durable releases with numeric latest links'
 			tag_name: `odyssey-desktop-v${version}`, draft: false, prerelease: false,
 			assets: [{ name: `rustdoc-${version}.tar.gz`, url: `https://assets.test/${version}` }],
 		}));
+		releases.push(
+			{ tag_name: 'odyssey-desktop-v9.0.0', draft: true, prerelease: false, assets: [] },
+			{ tag_name: 'odyssey-desktop-v8.0.0', draft: false, prerelease: true, assets: [] },
+		);
 		globalThis.fetch = async (url) => {
 			const value = String(url);
 			if (value.includes('/workflows/rustdoc.yml/runs?')) return Response.json({ workflow_runs: [
@@ -40,9 +46,11 @@ test('imports trusted master ZIP and durable releases with numeric latest links'
 		};
 		const output = path.join(temp, 'output');
 		await syncApiDocs(output);
-		assert.match(await fs.readFile(path.join(output, 'master/index.html'), 'utf8'), /master/);
-		assert.match(await fs.readFile(path.join(output, 'latest/index.html'), 'utf8'), /\/api\/0\.10\.0\//);
-		assert.equal(latestVersion(['0.9.0', '0.10.0']), '0.10.0');
+		for (const version of ['master', '0.9.0', '0.10.0']) {
+			await assert.rejects(fs.access(path.join(output, version, 'index.html')), { code: 'ENOENT' });
+			assert.equal(await fs.readFile(path.join(output, version, 'odyssey_protocol/index.html'), 'utf8'), `<h1>Protocol ${version}</h1>`);
+		}
+		await assert.rejects(fs.access(path.join(output, 'latest/index.html')), { code: 'ENOENT' });
 		const missing = path.join(temp, 'missing.tar.gz');
 		execFileSync('tar', ['-czf', missing, '-C', temp, 'api/0.9.0']);
 		assert.throws(() => validateArchive(missing, 'master'), /Unsafe or malformed/);
